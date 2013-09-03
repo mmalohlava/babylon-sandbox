@@ -1,0 +1,3 @@
+[submodule "babylon4awk"]
+	path = babylon4awk
+	url = git@github.com:mmalohlava/babylon4awk.git
