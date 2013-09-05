@@ -1,0 +1,540 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML lang="cs" dir="LTR">
+<HEAD>
+<LINK REL="SHORTCUT ICON" href="http://i.iinfo.cz/r/favicon.ico" type="image/x-icon">
+<script language="JavaScript" type="text/javascript">
+<!--
+image1 = new Image();
+image1.src="http://i.iinfo.cz/r/favicon.ico";
+// -->
+</SCRIPT>
+<meta http-equiv="Reply-to" CONTENT="redakce@root.cz">
+<meta http-equiv="Content-language" content="cs">
+<meta http-equiv="Cache-Control" CONTENT="Public">
+<meta http-equiv="Content-type" CONTENT="text/html; charset=iso-8859-2">
+<meta name="description" lang="cs" content="Linux pro kazdeho. Zpravodajství nejen ze světa Linuxu, ale i otevřeného software, bezpečnosti a technologií.">
+<meta name="keywords" lang="cs" content="linux open software unix bsd libre sklizeň how-to dokumentace kernel bezpečnost security aktuality zpravodajství gnu gpl gnome kde programování">
+<meta name="resource-type" content="document">
+<meta name="copyright" content="Content (c) 1998 - 2003 Internet Info, s.r.o.">
+<meta name="author" content="Internet Info, s.r.o.">
+<meta name="robots" content="ALL,FOLLOW">
+<meta name="DC.Identifier" content="(SCHEME=ISSN) 12128309">
+<title>ROOT.cz - linux, open source a free software bez tajemství</title>
+<style type="text/css"><!-- @import url("/root_black.css"); --></style>
+<script type="text/javascript" src="/sidebar.js"></script>
+</HEAD>
+
+<BODY BGCOLOR="#000000" TEXT="#EEEEEE" LINK="#AAC8F0" VLINK="#7A98C0" ALINK="#BEDCFF">
+<TABLE align="center" BORDER=0 CELLSPACING=0 CELLPADDING=0><TR><TD>
+<table WIDTH=748 CELLPADDING=0 CELLSPACING=0 BORDER=0 align="center" style="border: 1px solid #444444">
+<tr><td BGCOLOR="#000000"><img SRC="http://i.iinfo.cz/bt.gif" WIDTH=130 HEIGHT=1 ALT=""></td><td BGCOLOR="#444444"><img SRC="http://i.iinfo.cz/bt.gif" WIDTH=618 HEIGHT=1 ALT=""></td></tr>
+<tr><td WIDTH=130 ALIGN=CENTER BGCOLOR="#000000"><img SRC="http://i.iinfo.cz/bt.gif" WIDTH=2 HEIGHT=1 ALT=""><a HREF="http://r.iinfo.cz/?f=lista&amp;i=361" TARGET="_blank" TITLE="Internet Info"><img SRC="http://i.iinfo.cz/ii-long.gif" ALT="Internet Info" BORDER=0 WIDTH=107 HEIGHT=14 VSPACE=2></a></td>
+<td WIDTH=618 BGCOLOR="#444444" align="center" style="text-align:center !important;padding-bottom:2px"><img SRC="http://i.iinfo.cz/iil-white.gif" WIDTH=582 HEIGHT=14 ALT="" BORDER=0 USEMAP="#iil"><map NAME="iil"><area SHAPE="RECT" COORDS="1,1,31,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=354" ALT="Lupa" TITLE="Lupa: server o českém Internetu"><area SHAPE="RECT" COORDS="33,1,65,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=10822" ALT="Root" TITLE="Root: informace nejen ze světa Linuxu"><area SHAPE="RECT" COORDS="67,1,106,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=355" ALT="Měšec" TITLE="Mešec: server o osobních financích"><area SHAPE="RECT" COORDS="108,1,179,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=356" ALT="Palmserver" TITLE="Palmserver: mobilní komunikace na dlani"><area SHAPE="RECT" COORDS="181,1,243,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=10819" ALT="Navrcholu" TITLE="Navrcholu: měření a vyhodnocování návštěvnosti www stránek"><area SHAPE="RECT" COORDS="245,1,312,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=357" ALT="Slunečnice" TITLE="Slunečnice: server freeware a shareware"><area SHAPE="RECT" COORDS="314,1,352,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=358" ALT="Burza" TITLE="Burza: internetová burzovní hra"><area SHAPE="RECT" COORDS="354,1,406,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=359" ALT="Hokejka" TITLE="Hokejka: internetová hokejová liga"><area SHAPE="RECT" COORDS="408,1,456,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=44" ALT="Vajíčko" TITLE="Vajíčko: server o reklamě, médiích a dobrém vkusu"><area SHAPE="RECT" COORDS="458,1,543,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=360" ALT="Stavocentrum" TITLE="Stavocentrum: server o bydlení a stavebnictví"><area SHAPE="RECT" COORDS="545,1,581,14" HREF="http://r.iinfo.cz/?f=lista&amp;i=10824" ALT="Woko" TITLE="Woko: pamatuje si za vás"><area SHAPE="DEFAULT" ALT="" NOHREF></map></td></tr>
+</table>
+
+<img SRC="http://i.iinfo.cz/bt.gif" WIDTH=1 HEIGHT=4 ALT=""><BR>
+
+<TABLE WIDTH=750 BORDER=0 CELLSPACING=0 CELLPADDING=0 align="center">
+<TR VALIGN=top>
+	<TD COLSPAN=2><H1><A HREF="/"><IMG SRC="http://i.iinfo.cz/r//nadpis.gif" WIDTH=472 HEIGHT=72 BORDER=0 ALT="ROOT.cz - linux, open source a free software"></A></H1>
+<!-- StartKód: ad2.bbmedia.cz 2.0 - Server: Root.cz(110), Sekce: Main(1), Pozice: Horní - titulka(2), TypBanneru: proužek(1), OKRAJ: 0, POPIS: 0. -->
+<script language=JavaScript>
+var d=document;
+var s=screen,n=navigator,bbh;bbh='&ubl='+n.browserLanguage+'&ucc='+n.cpuClass+'&ucd='+s.colorDepth+'&uce='+n.cookieEnabled+'&udx='+s.deviceXDPI+'&udy='+s.deviceYDPI+'&usl='+n.systemLanguage+'&uje='+n.javaEnabled()+'&uah='+s.availHeight+'&uaw='+s.availWidth+'&ubd='+s.bufferDepth+'&uhe='+s.height+'&ulx='+s.logicalXDPI+'&uly='+s.logicalYDPI+'&use='+s.fontSmoothingEnabled+'&uto='+(new Date()).getTimezoneOffset()+'&uti='+(new Date()).getTime()+'&uui='+s.updateInterval+'&uul='+n.userLanguage+'&uwi='+s.width;
+var w=window,iw=0,ih=0;
+if(d.body) if(w.innerWidth){iw=w.innerWidth;ih=w.innerHeight;}else{iw=d.body.clientWidth;ih=d.body.clientHeight;}
+bbh+='&__INWIDTH='+iw+'&__INHEIGHT='+ih;
+var bbcb=(d.bgColor)?d.bgColor.substr(1):'FFFFFF',bbct=(d.fgColor)?d.fgColor.substr(1):'000000',bbcl=(d.linkColor)?d.linkColor.substr(1):'0000FF';
+d.write("<table border=0 cellpadding=0 cellspacing=0><tr><td><IFRAME WIDTH=468 HEIGHT=60 NAME='bm2BBMEDIA_110_1_2_1' ID='bm2BBMEDIA_110_1_2_1' MARGINWIDTH=0 MARGINHEIGHT=0 FRAMEBORDER=0 HSPACE=0 VSPACE=0 SCROLLING=no SRC='http://ad2.bbmedia.cz/please/showit/110/1/2/1/?typkodu=html&topmargin=0&leftmargin=0"+bbh+"&href="+escape(location.href)+"&alttext=0&border=0&bgcolor="+bbcb+"&text="+bbct+"&link="+bbcl+"&bust="+Math.random()+"&target=_top'>");
+d.write("<scr"+"ipt language=JavaScript>");
+d.write("document.write(\"<scr\"+\"ipt language=JavaScript src='http://ad2.bbmedia.cz/please/showit/110/1/2/1/?typkodu=js\"+bbh+\"&href=\"+escape(location.href)+\"&alttext=0&border=0&bust=\"+Math.floor(10000000*Math.random())+\"&target=_top'><\/scr\"+\"ipt>\");");
+d.write("<\/scr"+"ipt>");
+d.write("<\/IFRAME><\/td><\/tr>");
+d.write("<tr><td><IFRAME WIDTH=468 HEIGHT=0 NAME='bm2sBBMEDIA_110_1_2_1' ID='bm2sBBMEDIA_110_1_2_1' MARGINWIDTH=0 MARGINHEIGHT=0 FRAMEBORDER=0 HSPACE=0 VSPACE=0 SCROLLING=no SRC='' STYLE='position: absolute'><\/IFRAME><\/td><\/tr><\/table>");
+</script>
+<noscript>
+<table border=0 cellpadding=0 cellspacing=0><tr><td>
+<a href="http://ad2.bbmedia.cz/please/redirect/110/1/2/1/" target="_top">
+<img src="http://ad2.bbmedia.cz/please/showit/110/1/2/1/?typkodu=img" border=0 width=468 height=60 /></a>
+</td></tr></table>
+</noscript>
+<!-- KonecKód: ad2.bbmedia.cz 2.0 -->
+</TD><TD ALIGN=right>
+	
+<!-- NAVRCHOLU.cz -->
+<script language="JavaScript" type="text/javascript">
+<!--
+pxDepth = screen.pixelDepth;
+if (!(pxDepth > 0))
+	pxDepth = screen.colorDepth;
+if (!(pxDepth > 0))
+	pxDepth = 0; 
+document.write("<img src=\"http://hit.navrcholu.cz/hit?id=00000014;n=1;screenx=" + screen.width + ";screeny=" + screen.height + ";cdepth=" + pxDepth + ";ref=" + escape(top.document.referrer) + "\" width=\"1\" height=\"1\" alt=\"\">");
+// -->
+</script>
+<noscript><img src="http://hit.navrcholu.cz/hit?id=00000014;n=1" width="1" height="1" alt="" border="0"></noscript>
+<!-- NAVRCHOLU.cz - konec -->
+<!-- i d o t -->
+<IMG SRC="http://dot.idot.cz/?i=200222&amp;c=1&amp;s=1" width=1 height=1 alt="" border="0">
+<!-- i d o t  e n d-->
+	<IMG SRC="http://i.iinfo.cz/r//root.gif" WIDTH=145 HEIGHT=176 BORDER=0 ALT=""></TD>
+</TR></TABLE>
+
+<TABLE WIDTH=750 BORDER=0 CELLSPACING=0 CELLPADDING=0 align="center">
+<TR><TD><IMG
+	SRC="http://i.iinfo.cz/bt.gif" WIDTH=472 HEIGHT=1 BORDER=0 ALT=""></TD><TD><IMG
+	SRC="http://i.iinfo.cz/bt.gif" WIDTH=3 HEIGHT=1 BORDER=0 ALT=""></TD><TD><IMG
+	SRC="http://i.iinfo.cz/bt.gif" WIDTH=275 HEIGHT=1 BORDER=0 ALT=""></TD></TR>
+<TR VALIGN=top><TD CLASS="ro-cc" WIDTH=472>
+<!-- START: adarbo2.bbmedia.cz kod 2.0 purePOPUP Root -->
+<script language='JavaScript' type='text/javascript'>
+<!--
+document.write("<scr"+"ipt language='JavaScript' src='http://adarbo2.bbmedia.cz/please/showit/2/2/1/8/?typkodu=popup&href="+escape(location.href)+"&bust="+Math.random()+"'>");
+document.write("</scr"+"ipt>");
+/**///-->
+</script>
+<!-- END: adarbo2.bbmedia.cz kod 2.0 -->
+<H2 CLASS="ro-dc">Aktuální články</H2>
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1479">Stalo se v týdnu od 11.1. do 17.1.2003</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:redakce@root.cz"> Redakce</A> v oblasti <A HREF="/index/10">/etc/root/news</A> (18.01.2003)</P>
+	<P CLASS="ro-art">Pro ty, kteří čtou ROOTa jen o víkendu, přinášíme souhrn krátkých zpráv, které
+jsme v uplynulém týdnu publikovali: Crackování Xboxu jede na plný plyn - Top 10 bezpečnostních útoků roku 2002 - Stroj na míchané nápoje s Linuxem - FreeBSD R5.0-RC3 - Nové herní tituly pro Linux - Rok 2003: Spanilá jízda Linuxu? - X11 for Mac OS X - Gnome 2.2 RC1 - OpenOffice.org 1.0.1 CZ s kompletní českou nápovědou - Trojan.Linux.JBellz a další.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>544</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1479&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">0</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1478">Úskalí XML 2</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:petr@gingerall.cz">Petr Cimprich</A> v oblasti <A HREF="/index/8">Programování</A> (17.01.2003)</P>
+	<P CLASS="ro-art">Zařazení do jmenných prostorů se u atributů uplatňuje trochu jinak než
+u elementů, což někdy může být zdrojem nejasností. Intuitivní přístup tady
+nevystačí; je třeba nahlédnout do specifikace.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>1228</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1478&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">3</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1477">Win4Lin Desktop 4.0 - recenze</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:mirek@petricek.cz">Miroslav Petříček</A> v oblasti <A HREF="/index/2">Software</A> (16.01.2003)</P>
+	<P CLASS="ro-art">Ačkoliv počet nativních linuxových aplikací den ode dne roste, stále ještě
+je spousta uživatelů nucena používat programy určené výhradně pro Windows.
+Program Win4Lin Desktop umožňuje pohodlně provozovat regulerní instalaci
+Windows a většinu aplikačního softwaru v linuxovém prostředí, a to bez nutnosti
+dvojího bootování.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>4311</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1477&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">26</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1476">Softwarová sklizeň (15. 1. 2003)</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:mike-root@navrcholu.cz">Michal Krause</A> v oblasti <A HREF="/index/2">Software</A> (15.01.2003)</P>
+	<P CLASS="ro-art">Oblíbená sonda do světa (převážně) otevřeného softwaru. Dnes tu máme zajímavou implementaci VFS, šikovnou pomůcku pro vylepšení funkčnosti jednodušších window managerů, něco pro linuxové hráče a mnoho dalšího.
+</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>4864</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1476&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">17</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1475">CZFree.NET spustilo první optickou trasu</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:clock (at) atrey.karlin.mff.cuni.cz">Karel 'Clock' Kulhavý</A> v oblasti <A HREF="/index/6">Praxe</A> (14.01.2003)</P>
+	<P CLASS="ro-art">Je tomu zhruba dva týdny od okamžiku, kdy pražská komunitní síť CZFree.NET
+přestala být čistě mikrovlnnou záležitostí a zprovozněním 800metrového spoje
+s jednotkami Ronja 10M Metropolis vplula do vod bezvláknové optiky (též FSO,
+freespace optics). V tomto článku přineseme zprávu o fyzické realizaci tohoto
+průkopnického spoje, stejně tak jako popis, jak probíhala konfigurace
+příslušných parametrů na linuxových routerech na obou koncích.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>5712</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1475&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">40</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1474">TeX pro každého XII. - stručný úvod do typografie III.</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:utx@penguin.cz">Stanislav Brabec</A> v oblasti <A HREF="/index/2">Software</A> (13.01.2003)</P>
+	<P CLASS="ro-art">Dnes dokončíme naši typografickou exkurzi, a to dělením slov.
+Seznámíme se s&nbsp;poměrně neznámou visící interpunkcí a nakonec se
+podíváme na typografické možnosti webu.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>2600</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1474&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">25</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1473">Stalo se v týdnu od 4.1. do 10.1.2003</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:redakce@root.cz"> Redakce</A> v oblasti <A HREF="/index/10">/etc/root/news</A> (11.01.2003)</P>
+	<P CLASS="ro-art">Pro ty, kteří čtou ROOTa jen o víkendu, přinášíme souhrn krátkých zpráv, které
+jsme v uplynulém týdnu publikovali: Šestý release candidate KDE 3.1 - Linux nyní umí "hot zálohy" - Kauza Sendo vs. Microsoft - 200&nbsp;000 USD za prolomení ochrany MS Xboxu - Prohlížeč Safari od Applu na jádře Konqueroru - OpenOffice.org 1.0.1 s českou nápovědou - Jon Johansen shledán nevinným a další.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>3419</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1473&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">0</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1472">Úskalí XML</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:petr@gingerall.cz">Petr Cimprich</A> v oblasti <A HREF="/index/8">Programování</A> (10.01.2003)</P>
+	<P CLASS="ro-art">Jedním z hlavních požadavků kladených na jazyk XML měla být jeho relativní jednoduchost. Jednoduchostí a přehledností se XML  mělo odlišit od svého předchůdce SGML. Jednoduchost a přehlednost  měla umožnit maximální využití nového formátu pro přenos dokumentů, snadnou implementaci nástrojů a spolupráci s dalšími technologiemi. Jak se to podařilo?</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>4356</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1472&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">12</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1471">Ochrana CD ještě jednou</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:tom@navrcholu.cz">Tomáš Krause</A> v oblasti <A HREF="/index/5">Různé</A> (10.01.2003)</P>
+	<P CLASS="ro-art">Článek "Jak soudruzi z Bonton/Sony music bojují s piráty" rozdělil naše čtenáře
+na dva nesmiřitelné tábory. Jedni dávali autorovi za pravdu, druzí mu zazlívali
+přehnaně ostrý tón, kterým zástupce vydavatelství bez váhání napadl. Já jsem narazil na "chráněné" CD od vydavatelství Universal a zde je moje zkušenost.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>6983</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1471&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">79</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1470">Mikroplatby na ROOTovi končí</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:redakce@root.cz"> Redakce</A> v oblasti <A HREF="/index/10">/etc/root/news</A> (09.01.2003)</P>
+	<P CLASS="ro-art">Mnozí čtenáři již zaregistrovali, že české mikroplatební systémy pozastavují
+díky zákonu o platebním styku č. 124/2002 Sb. svoji činnost a proto končí i
+možnost přispívat mikroplatbami k našim článkům. Zde je shrnutí situace pro ty,
+kteří s ní ještě nejsou seznámeni.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>4257</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1470&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">24</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1469">ZODB, ZEO aneb vytápěné terárium pro vaše hroznýše</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:ca497299@tiscali.cz">Michal Toužín</A> v oblasti <A HREF="/index/8">Programování</A> (09.01.2003)</P>
+	<P CLASS="ro-art">Dostat objektového hroznýše do relačního terária není vždy jednoduché, a
+pokud se to povede, nevypadá to zrovna esteticky. Proto firma Digital Creation
+vyvinula jako součást projektu Zope plnokrevnou objektovou databázi. V minulém roce se objevila také její verze standalone, takže nic nebrání jejímu použití v nezávislých projektech.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>2634</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1469&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">5</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1468">Analogový a digitální svět</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:pavel_houser@idg.cz">Pavel Houser</A> v oblasti <A HREF="/index/5">Různé</A> (09.01.2003)</P>
+	<P CLASS="ro-art">Uplatní se v budoucnu kvantové počítače? Budeme moci tento vývoj chápat jako
+návrat k analogovým výpočetním systémům? Složitá otázka, protiklad analogového
+a digitálního principu se ovšem přitom netýká pouze počítačů umělých. Pokud
+třeba chápeme jako počítače i živé organismy, jedná se o stroje analogové, nebo
+digitální? A co ty směry moderní fyziky a matematiky, které chápou jako
+počítač celý vesmír?</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>3629</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1468&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">54</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1467">Softwarová sklizeň (8. 1. 2003)</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:mike-root@navrcholu.cz">Michal Krause</A> v oblasti <A HREF="/index/2">Software</A> (08.01.2003)</P>
+	<P CLASS="ro-art">Oblíbená sonda do světa (převážně) otevřeného softwaru. Dnes tu máme praktickou
+utilitku, se kterou je takřka libovolně složité hromadné přejmenování souborů
+zcela triviální záležitostí, port Bugzilly do PHP nebo něco pro hráče:
+počítačovou verzi hry RISK.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>5418</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1467&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">6</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1466">Cirkus s okny III</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:zdenek.kral@iol.cz">Zdeněk Král</A> v oblasti <A HREF="/index/8">Programování</A> (07.01.2003)</P>
+	<P CLASS="ro-art">Chcete mít zajímavou firemní prezentaci,
+nebo pěkný obrázek s nápisem hned v úvodním okně Vaší aplikace? Pokud
+ano, tak se podívejte na dnešní pokračování o grafické knihovně wxPython,
+kde najdete návod, jak na to. Dále si vytvoříme dialog pro komunikaci
+s uživatelem naší aplikace. Naučíme se psát text do námi definované
+oblasti a vysvětlíme si, jak naše aplikace pozná, na které platformě
+operačního systému je spuštěna.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>3001</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1466&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">13</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-ar">
+<H3><A HREF="/clanek/1465">PHP 4.3.0 a XSLT</A></H3>
+	<P CLASS="ro-ari"><A HREF="mailto:petr@gingerall.cz">Petr Cimprich</A> v oblasti <A HREF="/index/8">Programování</A> (06.01.2003)</P>
+	<P CLASS="ro-art">27. prosince byla uvolněna nová verze skriptovacího jazyka pro 
+vývoj webových aplikací - PHP 4.3.0. 
+Tento článek není recenzí nové verze, to přenechám povolanějším,
+zaměřuje se pouze na jeden z mnoha aspektů
+oblíbeného skriptovacího jazyka, a tím je možnost provádění
+transformací XSLT.</P>
+	<P CLASS="ro-ars">Čtenost článku: <EM>4375</EM> 	Počet příspěvků k článku: <EM><A HREF="/forum/diskuse.php4?clanek=1465&amp;vlakno=0&amp;stav=0&amp;vse=Zobrazit+v%B9e">7</A></EM></P>
+</DIV>
+
+<DIV CLASS="ro-arch"><A HREF="/archiv.php4">Archív článků ...</A></DIV>
+</TD>
+<TD WIDTH=3><IMG SRC="http://i.iinfo.cz/bt.gif" WIDTH=3 HEIGHT=1 BORDER=0 ALT=""></TD>
+<TD VALIGN=TOP ALIGN=LEFT CLASS="ro-rc" WIDTH=275><H2 CLASS="ro-dc">Další informace a odkazy</H2>
+<DIV CLASS="sm"><!-- StartCode: adarbo2.bbmedia.cz 2.0 -->
+<script language='JavaScript' type='text/javascript'>
+<!--
+var bbs=screen,bbn=navigator,bbh;bbh='&ubl='+bbn.browserLanguage+'&ucc='+bbn.cpuClass+'&ucd='+bbs.colorDepth+'&uce='+bbn.cookieEnabled+'&udx='+bbs.deviceXDPI+'&udy='+bbs.deviceYDPI+'&usl='+bbn.systemLanguage+'&uje='+bbn.javaEnabled()+'&uah='+bbs.availHeight+'&uaw='+bbs.availWidth+'&ubd='+bbs.bufferDepth+'&uhe='+bbs.height+'&ulx='+bbs.logicalXDPI+'&uly='+bbs.logicalYDPI+'&use='+bbs.fontSmoothingEnabled+'&uto='+(new Date()).getTimezoneOffset()+'&uti='+(new Date()).getTime()+'&uui='+bbs.updateInterval+'&uul='+bbn.userLanguage+'&uwi='+bbs.width;
+document.write("<scr"+"ipt language='JavaScript' src='http://adarbo2.bbmedia.cz/please/showit/2/1/3/24/?typkodu=non-standard"+bbh+"&alttext=0&border=0&bgcolor=FFFFFF&text=000000&link=0000FF&href="+escape(location.href)+"&bust="+Math.random()+"'>");
+document.write("</scr"+"ipt>");
+/**///-->
+</script>
+<!-- EndCode: adarbo2.bbmedia.cz 2.0 Non-standard -->
+</DIV>
+
+<!--
+<H3 CLASS="ro-sh">Školení pro Linux</H3>
+
+<DIV CLASS="ro-rb sm ro-rb-em">
+<p>Soft-tronik, a.s. nabízí tato školení:</p>
+
+<p class=ro-spm><a href="http://r.iinfo.cz/?f=root-skol&amp;i=20902">Linux - správa systému</a><br>
+14-15.1.2003 Praha - 3 800 Kč</p>
+
+<p class=ro-spm><a href="http://r.iinfo.cz/?f=root-skol&amp;i=20903">Linux - rozšířená správa</a><br>
+20-21.1.2003 Praha - 3 800 Kč</p>
+
+<p class=ro-spm><a href="http://r.iinfo.cz/?f=root-skol&amp;i=20904">Bezpečnost OS Linux</a><br>
+22-23.1.2003 Praha - 4 800 Kč</p>
+</DIV>
+-->
+
+
+
+
+<H3 CLASS="ro-sh">Hledat</H3>
+<DIV CLASS="ro-rb ro-rs"><form action="/search.php4" method="get" CLASS="ro-rb">
+<div><input type="text" name="word" size="22" ID="ro-rsi"> <input type="submit" value="Hledej" CLASS="ro-rsb"></div>
+<div><select size="1" name="where">
+<option value="root" selected>v článcích<option value="rootn">ve zprávičkách<option value="abc">na AbcLinuxu<option value="ll">na Linux Links</select></div>
+</form>
+</DIV>
+
+<H3 CLASS="ro-sh">Linux krátce</H3>
+<DIV CLASS="ro-rb">
+<UL CLASS="ro-mb">
+<LI><EM>18. 1. 14:55</EM>
+<P>I když má teď Mandrake obrovské finanční problémy, na Mandrake Linuxu 9.1 se stále
+usilovně pracuje. Vyšla už <a href="http://mandrake.redbox.cz/" title="Mandrake.Redbox.cz">druhá betaverze</a>, která je na rozdíl od bety 1 už dvoucedéčková. [<A HREF="mailto:tom@navrcholu.cz">tok</A>]</P></LI>
+<LI><EM>18. 1. 11:28</EM>
+<P>DistroWatch přinesl <A HREF="http://www.distrowatch.com/review-mandrake.php">recenzi nové Bety Mandrake Linux 9.1</A>. Doufejme, že Mandrake přežije finanční problémy a distribuci dokončí, neboť již beta se jeví býti velmi sympatickou. V recenzi jsou zmíněné i chyby, které se v betě vyskytují, aby se jim další testeři mohli vyhnout. [<A HREF="mailto:radoomek@root.cz">Radoomek</A>]</P></LI>
+<LI><EM>18. 1. 11:07</EM>
+<P>Když se v Česku bavíme o SPAMu, máme na mysli maximálně tak pár desítek kusů týdně. Ale co kdyby vám začalo chodit <A HREF="http://www.silicon.com/bin/bladerunner?30REQEVENT=&amp;REQAUTH=21046&amp;14001REQSUB=REQINT1=57064" title="-&gt; Silicon">8500 kusů SPAMu denně</A> a nemohli jste riskovat, že filtry zahodí nějaký e-mail s kontraktem za statisíce dolarů? Doufejme, že se nejedná o "moderní" taktiku konkurenčního boje. [<A HREF="mailto:radoomek@root.cz">Radoomek</A>]</P></LI>
+<LI><EM>17. 1. 12:37</EM>
+<P>Ačkoli firma Dell před časem prakticky zastavila vše spojené s Linuxem, jeho šéf Michael Dell se o Linux a především <A HREF="http://www.pcadvisor.co.uk/index.cfm?go=news.view&amp;news=3024" title="-&gt; PC Advisor">o Linux na desktopu zajímá</A>. Tvrdí však, že v nejbližší době Micosoftu vážně konkurovat nebude. [<A HREF="mailto:radoomek@root.cz">Radoomek</A>]</P></LI>
+<LI><EM>17. 1. 10:24</EM>
+<P>Proč je bezpečnost lépe zaručena díky Open Source produktům? Analýzu přináší článek <A HREF="http://newsforge.com/newsforge/03/01/15/1659246.shtml?tid=2" title="-&gt; News Forge">Open Source Security: Better Protection at a Lower Cost</a>. Zmiňuje nejen možnost kontroly celého kódu na chyby či zadní vrátka, ale i mnohonásobnou kontrolu kódu a rychlost odezvy při problému. [<A HREF="mailto:radoomek@root.cz">Radoomek</A>]</P></LI>
+<LI><EM>17. 1. 09:17</EM>
+<P>V poslední době dochází k boji mezi producenty softwarových nástrojů a elektronických zařízení a producentů obsahu. Obě strany souhlasí s implementacemi DRM mechanismů, ale ti druzí chtějí vše vynucovat zákony. Okolo výměny názorů mezi BSA a RIAA + MPAA se rozjela poměrně solidní diskuse: <A HREF="http://research.yale.edu/lawmeme/modules.php?name=News&amp;file=article&amp;sid=825">LawMeme</a> a <A HREF="http://212.100.234.54/content/6/28882.html">TheRegister</A>. [<A HREF="mailto:radoomek@root.cz">Radoomek</A>]</P></LI>
+<LI><EM>17. 1. 09:06</EM>
+<P>HP sponzoruje turnaj <A HREF="http://www.engineeredintelligence.com/gridwars/index.cfm" title="-&gt; engineeredintelligence.com">GRIDWARS challenge Spring 2003</a>. V rámci boje spolu na virtuálním poli procesorů bojují programy o nadvládu nad procesory. K účasti je potřeba "bojovník" napsaný v paralelním programovacím jazyce CxC. [<A HREF="mailto:radoomek@root.cz">Radoomek</A>]</P></LI>
+</UL><P align="center" style="text-align: center">
+<A href="/narchiv.php4">archiv starších zpráv</a></p>
+</DIV>
+
+
+<H3 CLASS="ro-sh">Zaměstnání</H3>
+<DIV CLASS="ro-jb">
+<!-- Pozice pro root.cz -->
+<table width="260"><tr><td>
+<table class="maly" align="left" width="260" border="0" cellpadding="1" cellspacing="1" bgcolor="#303030">
+  <tr>
+    <td bgcolor="#505050">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d3/3/10068242.htm" target="_blank">LAN, WAN technik s aktivní angličtinou</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#303030">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d3/2/10067801.htm" target="_blank">C++ programmer/analyst (Brno)</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#505050">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d3/2/10067653.htm" target="_blank">Aplikační programátor (Informix 4GL)</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#303030">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d2/31/10066282.htm" target="_blank">Programátor C++, Java (strojírenství)</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#505050">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d2/2b/838166.htm" target="_blank">Quality Engineer</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#303030">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d2/2d/842254.htm" target="_blank">Content Technical Support</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#505050">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d2/2f/848398.htm" target="_blank">Customer Support Engineer (m/w)</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#303030">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d2/30/10066009.htm" target="_blank">Vývojář IS (Perl, SQL)</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#505050">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d2/2e/10065022.htm" target="_blank">Programátor MS Visual Basic, C++</a>
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#303030">
+      <font>
+        <a class="sm" href="http://www.jobpilot.cz/misc/adframe/czroot_text/7d2/33/858334.htm" target="_blank">Vývojový a servisní specialista</a>
+      </font>
+    </td>
+  </tr>
+</table>
+</td></tr><tr>
+<td align="center">
+<a href="http://job.root.cz" target="_blank"><b>Rozšířené vyhledávání</b></a></td>
+</tr>
+<tr>
+<td align="center">
+<a href="http://www.jobpilot.cz/bewerber"><b>Můj Jobpilot - zaregistrujte se</b></a></td>
+</tr>
+</table>
+
+<DIV><A HREF="http://r.iinfo.cz/?f=root&amp;i=14832" target="job">Přidat nový inzerát</A></DIV>
+</DIV>
+	
+<H3 CLASS="ro-sh">Nejčtenější články</H3>
+<DIV CLASS="ro-rb"><UL CLASS="sm">
+<LI><A HREF="/clanek/1458">Úvaha: Výkon dnešních počítačů</A> (9367)</LI>
+<LI><A HREF="/clanek/1471">Ochrana CD ještě jednou</A> (6982)</LI>
+<LI><A HREF="/clanek/1461">Papírový počítač CGS</A> (6342)</LI>
+<LI><A HREF="/clanek/1456">Luxusní atrakce prohlížeče Links I</A> (6265)</LI>
+<LI><A HREF="/clanek/1475">CZFree.NET spustilo první optickou trasu</A> (5711)</LI>
+</UL></DIV>
+<H4 CLASS="ro-sh">Nejžhavější diskuze</H4>
+<DIV CLASS="ro-rb">
+<UL CLASS="sm"><LI><A HREF="/clanek/1458">Úvaha: Výkon dnešních počítačů</A> (<A HREF="/forum/diskuse.php4?clanek=1458&amp;vse=1">152 reakcí</A>)</LI>
+<LI><A HREF="/clanek/1461">Papírový počítač CGS</A> (<A HREF="/forum/diskuse.php4?clanek=1461&amp;vse=1">92 reakcí</A>)</LI>
+<LI><A HREF="/clanek/1471">Ochrana CD ještě jednou</A> (<A HREF="/forum/diskuse.php4?clanek=1471&amp;vse=1">79 reakcí</A>)</LI>
+<LI><A HREF="/clanek/1468">Analogový a digitální svět</A> (<A HREF="/forum/diskuse.php4?clanek=1468&amp;vse=1">54 reakcí</A>)</LI>
+<LI><A HREF="/clanek/1475">CZFree.NET spustilo první optickou trasu</A> (<A HREF="/forum/diskuse.php4?clanek=1475&amp;vse=1">40 reakcí</A>)</LI>
+</UL></DIV>
+
+<H3 CLASS="ro-sh">Oblasti</H3>
+<DIV CLASS="ro-rb">
+<UL CLASS="sm"><li><a href="/index/1">Hardware</a></li>
+<li><a href="/index/2">Software</a></li>
+<li><a href="/index/3">Internet</a></li>
+<li><a href="/index/4">Bezpečnost</a></li>
+<li><a href="/index/5">Různé</a></li>
+<li><a href="/index/6">Praxe</a></li>
+<li><a href="/index/7">Grafika a multimedia</a></li>
+<li><a href="/index/8">Programování</a></li>
+<li><a href="/index/9">Tiskové zprávy, PR</a></li>
+<li><a href="/index/10">/etc/root/news</a></li>
+</UL></DIV>
+
+<H3 CLASS="ro-sh"><A HREF="http://r.iinfo.cz/?f=root&amp;i=354">Lupa</A></H3>
+<DIV CLASS="ro-rb"><UL CLASS="sm"><li><a href="http://r.iinfo.cz/?f=root_b&u=http%3A%2F%2Fwww.lupa.cz%2Fclanek.php3%3Fshow%3D2669">Může CZ.NIC svévolně rušit domény?</a></li>
+<li><a href="http://r.iinfo.cz/?f=root_b&u=http%3A%2F%2Fwww.lupa.cz%2Fclanek.php3%3Fshow%3D2667">ADSL: propojení nebo přístup?</a></li>
+<li><a href="http://r.iinfo.cz/?f=root_b&u=http%3A%2F%2Fwww.lupa.cz%2Fclanek.php3%3Fshow%3D2666">Je dialup u Tiscali levnější než od Českého Telecomu?</a></li>
+<li><a href="http://r.iinfo.cz/?f=root_b&u=http%3A%2F%2Fwww.lupa.cz%2Fclanek.php3%3Fshow%3D2665">OpenAudit je opět v provozu</a></li>
+<li><a href="http://r.iinfo.cz/?f=root_b&u=http%3A%2F%2Fwww.lupa.cz%2Fclanek.php3%3Fshow%3D2664">A vítězem se stává </a></li>
+</UL></DIV>
+
+<H3 CLASS="ro-sh"><A HREF="http://r.iinfo.cz/?f=root&amp;i=14828">Slashdot</A></H3>
+<DIV CLASS="ro-rb"><UL CLASS="sm"><li><a href="http://slashdot.org/article.pl?sid=03/01/17/2018251">Dissecting the Roomba</a></li>
+<li><a href="http://slashdot.org/article.pl?sid=03/01/17/2126211">When Appliances Revolt</a></li>
+<li><a href="http://slashdot.org/article.pl?sid=03/01/17/181208">Falcon's Eye: a Make-over for Nethack</a></li>
+<li><a href="http://slashdot.org/article.pl?sid=03/01/17/2021202">Music Biz Predicts 6% Decline in '03</a></li>
+<li><a href="http://slashdot.org/article.pl?sid=03/01/17/2012259">Beyond Eldred v. Ashcroft</a></li>
+</UL></DIV>
+
+<H3 CLASS="ro-sh"><A HREF="http://r.iinfo.cz/?f=root&amp;i=14827">Freshmeat</A></H3>
+<DIV CLASS="ro-rb"><UL CLASS="sm"><li><a href="http://freshmeat.net/releases/109938/">fsdb 0.2 </a></li>
+<li><a href="http://freshmeat.net/releases/109929/">PHP ImageMagick Class 1.0 </a></li>
+<li><a href="http://freshmeat.net/releases/109913/">gtkVUMeter 0.1 </a></li>
+<li><a href="http://freshmeat.net/releases/109911/">Graver's Football Squares 1.0 </a></li>
+<li><a href="http://freshmeat.net/releases/109907/">TinyDYN 1.0 </a></li>
+</UL></DIV>
+
+<H3 CLASS="ro-sh"><A HREF="http://r.iinfo.cz/?f=root&amp;i=14829">Linux Today</A></H3>
+<DIV CLASS="ro-rb"><UL CLASS="sm"><li><a href="http://linuxtoday.com/news_story.php3?ltsn=2003-01-18-006-26-OP-MS-SW">I, Cringely: What Lies Beneath</a></li>
+<li><a href="http://linuxtoday.com/news_story.php3?ltsn=2003-01-18-005-26-OP-HW-SW">The Register: Dude, You&#39;ve Got Selective Amnesia!</a></li>
+<li><a href="http://linuxtoday.com/news_story.php3?ltsn=2003-01-18-004-26-OP-BZ-SW">iTweb: There&#39;s Something Fishy/Fantastic About Freeware</a></li>
+<li><a href="http://linuxtoday.com/news_story.php3?ltsn=2003-01-18-003-26-OP-CD-LL">Practical Technology: SCO Linux/Unix Licensing Nonsense</a></li>
+<li><a href="http://linuxtoday.com/news_story.php3?ltsn=2003-01-18-002-26-OP-MS-PB">Sydney Morning Herald: Would You Like Source With That?</a></li>
+</UL></DIV>
+
+<H3 CLASS="ro-sh ro-dc">Hledat</H3>
+<DIV CLASS="ro-search"><form action="/search.php4" method="get" target="seznam">
+<table border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td><a href="http://r.iinfo.cz/?f=root&amp;i=2593"><img src="http://i.iinfo.cz/r/seznam/logo.gif" width=59 height=17 border=0 alt="Seznam"></a></td></tr>
+<tr><td bgcolor="#000000"><input type="hidden" name="where" value="_seznam"><input type="text" name="word" size="5" class="ro-rsib"></td></tr>
+<tr><td bgcolor="#ec0000"><img src="http://i.iinfo.cz/bt.gif" width="1" height="1" alt=""></td></tr>
+<tr><td align="right" style="text-align:right !important"><input type="image" name="submit" src="http://i.iinfo.cz/r/seznam/tlacitko.gif" width=108 height=10 border=0 alt="hledej na Internetu"></td></tr>
+</table></form>
+</DIV>
+
+
+<H3 CLASS="ro-sh">Redakce</H3>
+<DIV CLASS="ro-rb sm">
+<UL>
+	<LI>email redakce: <A HREF="mailto:redakce@root.cz">redakce@root.cz</A></LI>
+	<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14831" target="ii">reklama na ROOT.cz</A></LI>
+	<LI><A HREF="http://marecek.kup.to/trade/search/?Query=ROOT.cz" target=mar>Trička, mikiny, osušky</A> s Tuxem</LI>
+	<LI>chcete se stát naším spolupracovníkem a podílet na obsahu ROOTa? <A HREF="/jak_psat.php4">Čtěte, jak na to.</A></LI>
+	<LI>pokud chcete podpořit ROOTa, přidejte si na svou stránku naši <A HREF="/ikonka.php4">ikonku</A>
+	<DIV CLASS="ro-icon"><A HREF="http://root.cz/"><IMG SRC="http://i.root.cz/root_ico.gif" WIDTH=88 HEIGHT=31 BORDER=0 ALT="root.cz"></A></DIV>
+	<DIV><a href="javascript:enableSidebar();">Zapnětě si náš sidebar pro Mozillu!</a></DIV>
+</LI>
+</UL>
+</DIV>
+
+<H3 CLASS="ro-sh">Root.cz kdekoliv</H3>
+<DIV CLASS="ro-rb">
+<P CLASS="sm">
+	Nadpisy článků pro vaše stránky nebo desktopové aplikace umožňující jejich
+	načítaní: formáty <A HREF="/rss/?rdf=1">RDF</A>, 
+	<A HREF="/rss/">RSS</A> a <A HREF="/share/">TXT</A>.</P>
+		
+<P CLASS="sm">
+	Roota můžete číst také na <STRONG>Palm Pilotech</STRONG> a jiných
+	kapesních počítačích. Stránky pro PDA nabízíme v těchto
+	kódováních češtiny:
+	<A HREF="/il2/avgo_index.php4">ISO-8859-2</A>,
+	<A HREF="/win/avgo_index.php4">CP1250</A>,
+	<A HREF="/mac/avgo_index.php4">MacCE</A> a
+	<A HREF="/asc/avgo_index.php4">ASCII</A>.</P>
+
+<P CLASS="sm">
+	K prohlížení lze použít například
+	<A HREF="http://r.iinfo.cz/?f=root&amp;i=14844">iSilo</A> nebo
+	<A HREF="http://r.iinfo.cz/?f=root&amp;i=14846">Plucker</A>.</P>
+</DIV>
+
+<H3 CLASS="ro-sh">Doporučujeme</H3>
+<DIV CLASS="ro-rb" STYLE="margin-bottom:0">
+<UL CLASS="sm">
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14833">Underground.cz</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14834">Penguin.cz</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14835">Reboot.cz</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14836">AbcLinuxu.cz</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14837">Výzva k rozšíření Internetu v ČR</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14838">LiNUX.SK</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14839">Mandrake.CZ</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14840">Linux na každý den</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=18191">Konference pro začátečníky</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14842">Igiho stránka o virech</A></LI>
+<LI><A HREF="http://r.iinfo.cz/?f=root&amp;i=14843">WebGuru.cz</A></LI>
+</UL>
+</DIV>
+</TD></TR></TABLE>
+
+<TABLE BORDER=0 WIDTH=750 CELLSPACING=0 CELLPADDING=0 CLASS="ro-pa" ALIGN=CENTER>
+<tr BGCOLOR="#444444" VALIGN="middle">
+ <td CLASS="ro-pa-1"><a HREF="http://r.iinfo.cz/?f=root&amp;i=361"><img SRC="http://i.iinfo.cz/r/ro-iinfo.gif" BORDER=0 ALT="Internet Info" WIDTH=73 HEIGHT=50></a></td>
+ <td CLASS="ro-pa-2" WIDTH=657>
+ <p><strong>ROOT</strong>, informace nejen ze světa Linuxu. ISSN 1212-8309</p>
+ <div>Copyright (c) 1998-2003 <a HREF="http://r.iinfo.cz/?f=root&amp;i=361">Internet Info</a>, s.r.o. 
+  Všechna práva vyhrazena.<br>
+ <A HREF="mailto:redakce@root.cz">Kontakt</a> |
+ <A HREF="http://r.iinfo.cz/?f=root&amp;i=14831" TARGET="ii">Reklama</a> |
+ <A HREF="/ochrana.php4">Ochrana osobních údajů</a>
+</DIV></td></tr></table>
+</TD><TD VALIGN="top">&nbsp;</TD></TR></TABLE></body>
+</html>

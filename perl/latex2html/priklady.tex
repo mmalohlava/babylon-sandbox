@@ -1,0 +1,53 @@
+\documentstyle[11pt,czech]{article}
+\title{\u Re¹ení pøíkladù ze cvièení}
+\date{}
+\author{Michal Malohlava}
+\newtheorem{theorem}{Pøíklad}
+\newtheorem{lemma}{Lemma}
+\begin{document}
+\maketitle
+\begin{theorem}Doka¾te, ¾e spoèetná mno¾ina je koneèná právì tehdy,
+kdy¾ v¹echna její lineární uspoøádání jsou navzájem isomorfní
+\end{theorem}
+\paragraph{\u Re¹ení}
+\uv{$\Rightarrow$} \\
+Chci dokázat, ¾e pro $\forall R,S $ lineárni uspoøádaní mno¾iny A existuje 
+\[f:A \to A\textrm{(bijekce)}: \forall x,y \in A: xRy \Leftrightarrow f(x)Sf(y)\]
+Mno¾ina $A$ je koneèná, libovolné lineárni uspoøádaní koneèné mno¾iny ma nejvìt¹í prvek. 
+Tedy $f$ se dá najit tak, ¾e nejvìt¹ímu prvku uspoøádání $R$ pøiøadím nejvìt¹í prvek v uspoøádání $S$. Tyto dva prvky mù¾u odebrat (proto¾e se jedna o mno¾iny lineárnì uspoøádané) a indukcí mù¾u zpracovat zbytek.\\
+Touto konstrukci vytvoøím bijekci f, proto¾e zobrazím ka¾dý prvek a linearita uspoøádání mi zaruèí, ¾e zobrazeni f bude prosté. A zárove\u n neporu¹ím podmínku, ¾e $\forall x,y \in A: xRy \Leftrightarrow f(x)Sf(y)$.
+\\
+\\
+\uv{$\Leftarrow$} \\
+Sporem: pøedpokládejme, ¾e $A$ je nekoneèná (ale spoèetná, dle pøedpokladù). Jeliko¾ $A$ je spoèetná, tak si ji oèísluji pomocí pøirozených èísel. A zkusím najít nìjaká dvì neizomorfní lineární uspoøádání pøirozených èísel.
+\\
+Tøeba takto:
+\[ S : 1 < 2 < 3 \ldots \quad \textrm{a} \quad R : \ldots 100<99<98 \ldots <1\]
+Uspoøádání $S$ má nejmen¹í prvek (a to 1), ale nemá nejvìt¹í. A  uspoøádání $R$ má nejvìt¹í prvek, ale naopak nemá nejmen¹í. Pak ale neexistuje ¾ádná bijekce $f:A \rightarrow A$, pro kterou by platilo: $\forall x,y \in A: xRy \Leftrightarrow f(x)Sf(y)$.Proto¾e kdy¾ zobrazím nejmen¹í prvek uspoøádání $S$ (tedy 1) na libovolný prvek uspoøádání $R$, tak mi nebude platit , ¾e $\forall x \in A: f(x)Rf(1)\Leftrightarrow x<1$, proto¾e ¾ádné takové $x$ v uspoøádáni $S$ neexistuje. \\ Tedy $A$ je koneèná a pøíklad je dokázán.
+\\
+\begin{theorem}Doka¾te, ¾e stìny ka¾dého rovinného grafu se v¹emi stupni vrcholù
+sudými lze obarvit dvìma barvami tak, aby ¾ádné dvì stìny sousedící hranou
+nemìly stejnou barvu.
+\end{theorem}
+
+\paragraph{\u Re¹ení}
+$G$ je rovinný graf, v¹echny vrcholy mají stupnì sudé. 
+\begin{lemma}
+Je-li $G$ rovinný graf a ma v¹echny stupnì sudé, pak $G^{*}$ (graf duální) je biparitní.
+\end{lemma}
+Dle cvièení je $\mathcal{C}$ (prostor kru¾nic grafu $G$) izomorfní s $\mathcal{R^{*}}$ (prostor øezù v grafu $G^{*}$.
+Jeliko¾ $G$ má v¹echny stupnì sùdé, tvoøí jeho hrany sudou mno¾inu s charakteristickým vektorem $v_G=11\ldots 11$. Tomuto vektoru odpovídá v $\mathcal{R^*}$ øez, který vede pøes v¹echny hrany. Tj. graf $G^*$ je bipartitní.
+\\
+\\
+Te\u d staèí lemma pou¾ít na graf $G$. Dostaneme, ¾e graf $G^*$ je bipartitní. Tj. vrcholy $G^*$ mù¾u rozdìlit do dvou skupin, ka¾dou skupinu vrcholu obarvím jednou ze 2 barev. Ale dle konstrukce duálního grafu $G^*$, le¾í vrcholy $G^*$ uvnitø nìjaké stìny $G$ a hrany $G^*$ vedou právì pøes hrany $G$ (*).Tak tedy mù¾u obarvit stìny$G$ dle barvy vrcholu $G^*$, který le¾í uvnitø dane stìny.
+Takto obarvené stìny budou spl\u novat podmínku, ¾e ¾ádné dvì sousedni stìny nemají stejnou barvu (dle (*)).
+\newenvironment{env}{\zacatek{aho}}{\konec{end}}
+\begin{env}
+    toto je v prostredi \bf{env}
+\end{env}
+\newcommand{\ZZ}{\mathbf{Z}}
+\newcommand{\QQ}{\mathbf{Q}}
+\newcommand{\RR}{\mathbf{R}}
+
+\end{document}
+

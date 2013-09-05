@@ -1,0 +1,23 @@
+\\{	{
+\\}	}
+\\ 	&nbsp;
+\\#	#
+\\%	%
+\\&	&
+\\:	&nbsp;
+\\\\	<br />
+\\aleph	N
+\\alpha	A
+\\angle	u
+\\aprox	asi
+\\arccos	arccos
+\\arcsin	arcsin
+\\arctan	arctan
+\\arg	arg
+\asymp	str148
+\\;	&nbsp;&nbsp;
+\\begin\{document\}	<document>
+\\end\{document\}	</document>
+\\newline	<br />
+\\date\{[^\}]*}	<!--- zde bylo \date{} -->
+\\maketitle	<!--- zde bylo \maketitle -->
