@@ -1,0 +1,33 @@
+\documentstyle[11pt, czech]{article}
+\author{Michal Malohlava}
+\title{Zápoètový pøíklad}
+\date{}
+\begin{document}
+\maketitle
+\paragraph{Zadání:}
+332b Pentomino - daná plocha se má pokrýt danými obrazcemi. Typicky je plocha dìlená na ètverce a pokrývá se dvanácti obrazcemi slo¾ených z pìti spojených ètvercù. Obrazce se mù¾ou otáèet a pøevracet. Tvar plochy a tvar obrazcù je souèástí zadání.
+\paragraph{Popis øe¹ení}
+Re¹ení je rozdìleno do dvou èástí. V první èásti se naètou potøebné datové struktury a ve druhe èásti se provádí vlastní hledání øe¹ení. 
+Tvar plochy se naèíta ze souboru. V nìm je plocha zadána jako obdelník, ve kterém jsou vyznaèeny pomocí {\it 0} ètverce patøící dané plo¹e a pomocí {\it n} ètverce, které nepatøí do plochy. V programu je plocha reprezentovaná strukturou {\it b}, která má poèet parametrù roven obsahu zadané plochy (vèetnì ètvercu oznaèených jako {\it n}). Do této struktury budu následnì substituovat za vólné promìnné jednotlivé obrazce.
+
+Obrazce jsou naèítány obdobnì jako plocha ze souboru. V souboru jsou jednotivé obrazce oddìleny prázdnou øádkou. Obrazce jsou naèteny do seznamu matic. Program následnì provede pro jednotlivé obrazce jejich otoèeni a pøeklopení kolem vodorovné osy (jako jedoduché maticové operace). Pro ka¾dý obrazec se vytvoøí seznam mo¾ných poloh, ale program si zároveò kontroluje, aby ka¾dá mo¾ná pozice byla v seznamu právì jednou (tj. vytvoøí mno¾nu v¹ech mo¾ných poloh obrazce). Následnì je ka¾dá matice, která reprezentuje obrazec, pøekonvertována na seznam relativních souøadnic vzta¾ených ke ètverci, který je co nejvíc vlevo a nahoøe. Napø:
+$$ 
+\begin{array}{ccc}
+{\bf 0} & 0 & 0 \\
+n & n & 0
+\end{array} = [ d(1,0), d(2,0), d(2,1)]
+$$
+
+Pøed vlastním hledáním øe¹ení si je¹tì pøipravím vyhledávací seznam - bude tvoøen prommìnými ze struktury, která tvoøí plochu (budu se moci rychle rozhodnout zda je dané políèko u¾ pokryté nebo ne jen pomoci predikátu {\it var}). Promìnné budou do seznamu ulo¾eny ulo¾eny od horního levého rohu postupnì po diagonálách. To z toho d§vodu, abych zaplòoval postupnì v¹e od levého horního rohu. Napø:
+$$
+\begin{array}{ccc}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 
+\end{array} \rightarrow [ 1,2,4,3,5,7,6,8,9]
+$$
+
+Vlastní hledání øe¹ení je zalo¾eno na prohledávání do ¹íøky: 
+
+Vezme se prvek z vyhledávacího seznamu, ovìøím si, ¾e na daném místì není dosud umístìn ¾ádný obrazec. Kdy6 tam dosud není tam zkusím na dané místo dosadit obrazec(jednu polohu) ze seznamu obrazcù. Kdy¾ uspìju tak odeberu dal¹í prvek z vyhledávacího seznamu a postup opakuju. Kdy¾ neuspìju pro daný obrazec, tak zkusím jeho dal¹í polohu, a kdy¾ ani tak neuspìju, tak pøejdu na dal¹í obrazec.
+\end{document}

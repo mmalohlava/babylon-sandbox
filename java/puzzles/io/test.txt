@@ -1,0 +1,2 @@
+Thi is an OUT test
+Thi is an ERR  test

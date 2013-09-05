@@ -1,0 +1,33 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MATICE je zadavena po radcich : [ [1,2] , [3,4]] = ( 1 2 )     %%
+%%						      ( 3 4 )     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% transpozice matice trans(+V, -R)
+
+trans([[]|_],[]).
+trans(V,[X|R]):-rozdel(V,X,M),trans(M,R).
+
+rozdel([],[],[]).
+rozdel([[X|R]|M],[X|S],[R|M1]):-rozdel(M,S,M1).
+
+
+%otoceni matice o -PI/2 : otoc_minus(+In, -Out).
+otoc_minus([[]|_],[]).
+otoc_minus(V,[R|M]):-distribute(V,R,Mpom),otoc_minus(Mpom,M).
+%distribute : rozdeli prvni prvky z kazdeho radku do pole S, od posledniho k prvnimu
+%distribute : distribute(+M,-S,-M1) ---> z M generuje radek S a z M se pak stava odebranim prvku M1
+%reseno pomoci AKUMULATORU
+distribute([],S,S,[]).
+distribute([[X|R]|M],S,Pom,[R|M1]):-distribute(M,[X|S],Pom,M1).
+
+distribute(M,S,M1):-distribute(M,[],S,M1).
+
+%otoceni matice o +PI/2 : otoc_plus(+In, -Out).
+%bud 3 kra pouziju otoc_minus,
+%nebo to udelam trochu jinak
+
+otoc_plus(V,M):-otoc_plus(V,[],M).
+otoc_plus([[]|_],X,X).
+otoc_plus(V,M,X):-rozdel(V,R,Mpom),otoc_plus(Mpom,[R|M],X).
+

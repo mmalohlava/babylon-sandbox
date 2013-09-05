@@ -1,0 +1,15 @@
+%obraceni seznamu (mozna v O(N) :->)
+%obrat(S,Pom,D) ---------> obrati seznam S a ulozi do D, Pom ... pomocna promenna...
+
+obrat([],X,X).
+obrat([A|S],D,Pom):-obrat(S,[A|D],Pom).
+myobrat(S,D):-obrat(S,[],D).
+
+% a co jeste spojovani seznamu v O(1)??? :->
+concat(X/Y,Y/Z,Y/Z).
+con(X,Y,Z):-concat(X/A,Y/B,Z).
+
+
+
+
+

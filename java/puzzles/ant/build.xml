@@ -1,0 +1,8 @@
+<project name="Ant test">
+ <property name="param" value="-la"/>
+ <target name="ls">
+ 	<exec executable="ls" >
+		<arg value="${param}"/>
+	</exec>
+ </target>
+</project>

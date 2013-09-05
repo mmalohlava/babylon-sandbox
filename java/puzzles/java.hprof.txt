@@ -1,0 +1,235 @@
+JAVA PROFILE 1.0.1, created Fri Feb 15 13:24:29 2008
+
+Header for -agentlib:hprof (or -Xrunhprof) ASCII Output (JDK 5.0 JVMTI based)
+
+@(#)jvm.hprof.txt	1.5 06/01/28
+
+ Copyright (c) 2006 Sun Microsystems, Inc. All  Rights Reserved.
+
+WARNING!  This file format is under development, and is subject to
+change without notice.
+
+This file contains the following types of records:
+
+THREAD START
+THREAD END      mark the lifetime of Java threads
+
+TRACE           represents a Java stack trace.  Each trace consists
+                of a series of stack frames.  Other records refer to
+                TRACEs to identify (1) where object allocations have
+                taken place, (2) the frames in which GC roots were
+                found, and (3) frequently executed methods.
+
+HEAP DUMP       is a complete snapshot of all live objects in the Java
+                heap.  Following distinctions are made:
+
+                ROOT    root set as determined by GC
+                CLS     classes 
+                OBJ     instances
+                ARR     arrays
+
+SITES           is a sorted list of allocation sites.  This identifies
+                the most heavily allocated object types, and the TRACE
+                at which those allocations occurred.
+
+CPU SAMPLES     is a statistical profile of program execution.  The VM
+                periodically samples all running threads, and assigns
+                a quantum to active TRACEs in those threads.  Entries
+                in this record are TRACEs ranked by the percentage of
+                total quanta they consumed; top-ranked TRACEs are
+                typically hot spots in the program.
+
+CPU TIME        is a profile of program execution obtained by measuring
+                the time spent in individual methods (excluding the time
+                spent in callees), as well as by counting the number of
+                times each method is called. Entries in this record are
+                TRACEs ranked by the percentage of total CPU time. The
+                "count" field indicates the number of times each TRACE 
+                is invoked.
+
+MONITOR TIME    is a profile of monitor contention obtained by measuring
+                the time spent by a thread waiting to enter a monitor.
+                Entries in this record are TRACEs ranked by the percentage
+                of total monitor contention time and a brief description
+                of the monitor.  The "count" field indicates the number of 
+                times the monitor was contended at that TRACE.
+
+MONITOR DUMP    is a complete snapshot of all the monitors and threads in 
+                the System.
+
+HEAP DUMP, SITES, CPU SAMPLES|TIME and MONITOR DUMP|TIME records are generated 
+at program exit.  They can also be obtained during program execution by typing 
+Ctrl-\ (on Solaris) or by typing Ctrl-Break (on Win32).
+
+--------
+
+THREAD START (obj=5000013c, id = 200002, name="HPROF gc_finish watcher", group="system")
+THREAD START (obj=5000013c, id = 200001, name="main", group="main")
+THREAD END (id = 200001)
+THREAD END (id = 200002)
+TRACE 300000:
+	<empty>
+TRACE 300001:
+	java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:299)
+	sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:276)
+TRACE 300002:
+	sun.misc.URLClassPath.getLoader(URLClassPath.java:320)
+	sun.misc.URLClassPath.getLoader(URLClassPath.java:297)
+	sun.misc.URLClassPath.getResource(URLClassPath.java:167)
+	java.net.URLClassLoader$1.run(URLClassLoader.java:192)
+TRACE 300003:
+	sun.misc.URLClassPath$3.run(URLClassPath.java:331)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+	sun.misc.URLClassPath.getLoader(URLClassPath.java:320)
+	sun.misc.URLClassPath.getLoader(URLClassPath.java:297)
+TRACE 300004:
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+	java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:299)
+TRACE 300005:
+	sun.misc.URLClassPath$3.run(URLClassPath.java:326)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+	sun.misc.URLClassPath.getLoader(URLClassPath.java:320)
+	sun.misc.URLClassPath.getLoader(URLClassPath.java:297)
+TRACE 300006:
+	sun.misc.URLClassPath$FileLoader.getResource(URLClassPath.java:984)
+	sun.misc.URLClassPath.getResource(URLClassPath.java:168)
+	java.net.URLClassLoader$1.run(URLClassLoader.java:192)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+TRACE 300007:
+	java.lang.ClassLoader.getPackage(ClassLoader.java:1447)
+	java.lang.ClassLoader.getPackage(ClassLoader.java:1445)
+	java.net.URLClassLoader.defineClass(URLClassLoader.java:220)
+	java.net.URLClassLoader.access$000(URLClassLoader.java:56)
+TRACE 300008:
+	sun.misc.Resource.getByteBuffer(Resource.java:155)
+	java.net.URLClassLoader.defineClass(URLClassLoader.java:249)
+	java.net.URLClassLoader.access$000(URLClassLoader.java:56)
+	java.net.URLClassLoader$1.run(URLClassLoader.java:195)
+TRACE 300009:
+	java.net.URLClassLoader.defineClass(URLClassLoader.java:259)
+	java.net.URLClassLoader.access$000(URLClassLoader.java:56)
+	java.net.URLClassLoader$1.run(URLClassLoader.java:195)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+TRACE 300010:
+	java.security.SecureClassLoader.getPermissions(SecureClassLoader.java:178)
+	java.net.URLClassLoader.getPermissions(URLClassLoader.java:443)
+	sun.misc.Launcher$AppClassLoader.getPermissions(Launcher.java:284)
+	java.security.SecureClassLoader.getProtectionDomain(SecureClassLoader.java:192)
+TRACE 300011:
+	sun.net.www.protocol.file.Handler.createFileURLConnection(Handler.java:95)
+	sun.net.www.protocol.file.Handler.openConnection(Handler.java:64)
+	sun.net.www.protocol.file.Handler.openConnection(Handler.java:55)
+	java.net.URL.openConnection(URL.java:945)
+TRACE 300012:
+	java.net.URLConnection.<clinit>(URLConnection.java:1180)
+	sun.net.www.protocol.file.Handler.createFileURLConnection(Handler.java:95)
+	sun.net.www.protocol.file.Handler.openConnection(Handler.java:64)
+	sun.net.www.protocol.file.Handler.openConnection(Handler.java:55)
+TRACE 300013:
+	sun.net.www.URLConnection.<init>(URLConnection.java:40)
+	sun.net.www.protocol.file.FileURLConnection.<init>(FileURLConnection.java:51)
+	sun.net.www.protocol.file.Handler.createFileURLConnection(Handler.java:95)
+	sun.net.www.protocol.file.Handler.openConnection(Handler.java:64)
+TRACE 300014:
+	sun.net.www.protocol.file.FileURLConnection.getPermission(FileURLConnection.java:198)
+	java.net.URLClassLoader.getPermissions(URLClassLoader.java:452)
+	sun.misc.Launcher$AppClassLoader.getPermissions(Launcher.java:284)
+	java.security.SecureClassLoader.getProtectionDomain(SecureClassLoader.java:192)
+TRACE 300015:
+	java.io.FilePermission.init(FilePermission.java:183)
+	java.io.FilePermission.<init>(FilePermission.java:249)
+	sun.net.www.protocol.file.FileURLConnection.getPermission(FileURLConnection.java:198)
+	java.net.URLClassLoader.getPermissions(URLClassLoader.java:452)
+TRACE 300016:
+	java.io.FilePermission$1.run(FilePermission.java:186)
+	java.io.FilePermission$1.run(FilePermission.java:183)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+	java.io.FilePermission.init(FilePermission.java:183)
+TRACE 300017:
+	java.security.Policy.<clinit>(Policy.java:91)
+	java.io.FilePermission$1.run(FilePermission.java:186)
+	java.io.FilePermission$1.run(FilePermission.java:183)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+TRACE 300018:
+	java.io.FilePermission.newPermissionCollection(FilePermission.java:601)
+	java.security.Permissions.getPermissionCollection(Permissions.java:238)
+	java.security.Permissions.add(Permissions.java:116)
+	java.net.URLClassLoader.getPermissions(URLClassLoader.java:497)
+TRACE 300019:
+	java.security.Permissions.add(Permissions.java:121)
+	java.net.URLClassLoader.getPermissions(URLClassLoader.java:497)
+	sun.misc.Launcher$AppClassLoader.getPermissions(Launcher.java:284)
+	java.security.SecureClassLoader.getProtectionDomain(SecureClassLoader.java:192)
+TRACE 300020:
+	java.security.Permissions.add(Permissions.java:124)
+	java.net.URLClassLoader.getPermissions(URLClassLoader.java:497)
+	sun.misc.Launcher$AppClassLoader.getPermissions(Launcher.java:284)
+	java.security.SecureClassLoader.getProtectionDomain(SecureClassLoader.java:192)
+TRACE 300021:
+	java.security.BasicPermission.newPermissionCollection(BasicPermission.java:257)
+	java.security.Permissions.getPermissionCollection(Permissions.java:238)
+	java.security.Permissions.add(Permissions.java:116)
+	sun.misc.Launcher$AppClassLoader.getPermissions(Launcher.java:285)
+TRACE 300022:
+	java.security.ProtectionDomain.<init>(ProtectionDomain.java:129)
+	java.security.SecureClassLoader.getProtectionDomain(SecureClassLoader.java:193)
+	java.security.SecureClassLoader.defineClass(SecureClassLoader.java:124)
+	java.net.URLClassLoader.defineClass(URLClassLoader.java:260)
+TRACE 300023:
+	java.lang.ClassLoader.checkCerts(ClassLoader.java:764)
+	java.lang.ClassLoader.preDefineClass(ClassLoader.java:487)
+	java.lang.ClassLoader.defineClass(ClassLoader.java:614)
+	java.security.SecureClassLoader.defineClass(SecureClassLoader.java:124)
+TRACE 300024:
+	java.lang.ClassLoader.defineClass(ClassLoader.java:620)
+	java.security.SecureClassLoader.defineClass(SecureClassLoader.java:124)
+	java.net.URLClassLoader.defineClass(URLClassLoader.java:260)
+	java.net.URLClassLoader.access$000(URLClassLoader.java:56)
+TRACE 300025:
+	java.net.URLClassLoader$1.run(URLClassLoader.java:195)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+	java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+TRACE 300026:
+	java.util.AbstractList.iterator(AbstractList.java:273)
+	java.lang.Shutdown.runHooks(Shutdown.java:87)
+	java.lang.Shutdown.sequence(Shutdown.java:133)
+	java.lang.Shutdown.shutdown(Shutdown.java:200)
+TRACE 300027:
+	java.util.IdentityHashMap.keySet(IdentityHashMap.java:935)
+	java.lang.ApplicationShutdownHooks.run(ApplicationShutdownHooks.java:70)
+	java.lang.Shutdown.runHooks(Shutdown.java:89)
+	java.lang.Shutdown.sequence(Shutdown.java:133)
+TRACE 300028:
+	java.util.IdentityHashMap$KeySet.iterator(IdentityHashMap.java:940)
+	java.lang.ApplicationShutdownHooks.run(ApplicationShutdownHooks.java:74)
+	java.lang.Shutdown.runHooks(Shutdown.java:89)
+	java.lang.Shutdown.sequence(Shutdown.java:133)
+TRACE 300029:
+	java.io.File$1.run(File.java:1946)
+	java.lang.Shutdown.runHooks(Shutdown.java:89)
+	java.lang.Shutdown.sequence(Shutdown.java:133)
+	java.lang.Shutdown.shutdown(Shutdown.java:200)
+TRACE 300030:
+	java.io.DeleteOnExitHook.<clinit>(DeleteOnExitHook.java:21)
+	java.io.File$1.run(File.java:1946)
+	java.lang.Shutdown.runHooks(Shutdown.java:89)
+	java.lang.Shutdown.sequence(Shutdown.java:133)
+TRACE 300031:
+	java.util.HashMap.keySet(HashMap.java:869)
+	java.util.HashSet.iterator(HashSet.java:153)
+	java.util.AbstractCollection.toArray(AbstractCollection.java:120)
+	java.util.ArrayList.<init>(ArrayList.java:131)
+TRACE 300032:
+	java.util.LinkedHashMap.newKeyIterator(LinkedHashMap.java:396)
+	java.util.HashMap$KeySet.iterator(HashMap.java:874)
+	java.util.HashSet.iterator(HashSet.java:153)
+	java.util.AbstractCollection.toArray(AbstractCollection.java:120)
+MONITOR DUMP BEGIN
+    THREAD 200001, trace 300000, status: R
+    THREAD 200002, trace 300000, status: ZO
+MONITOR DUMP END

@@ -1,0 +1,410 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ZAPOCTOVY PRIKLAD
+%% PENTOMINO
+%% Zadani: ulohou je vyplnit danou plochu danymi obrazcemi
+%% IN	: plocha, obrazce
+%% OUT	: pokryta oblast nebo nema reseni
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AUTOR	: Michal Malohlava
+%% DATUM	: 9.1.2003
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% tiskne zadanou plochu na obrazovku
+%% print_area(+P), P - seznam seznamu
+%print_area([]):-nl.
+%print_area([H|T]):-print_one_line(H,2), nl, print_area(T).
+%
+%print_one_line([],_).
+%print_one_line([n|T],R):-write(' '),tab(R),print_one_line(T,R).
+%print_one_line([0|T],R):-write('0'),tab(R),print_one_line(T,R).
+%
+%% tiskne board
+%%print_board([]):-nl,!,fail
+%print_board([]):-nl,!.
+%print_board([p(X,_,P)|R]):- X=:=0, nl, my_write(P), print_board(R).
+%print_board([p(X,_,P)|R]):- X=\=0, my_write(P), print_board(R).
+%
+%my_write(P) 		 :- P=n, write('  '),!.
+%my_write(P)		 :- P=:=0, write('.'),write(' '),!.
+%my_write(P)		 :- X is P + 64, char_code(Char, X), write(Char),write(' ').
+%
+%
+%%----------------------------------------------------------------------------------------------
+%
+%% prevede danou plochu na seznam souradnic
+%% convert_area(+Area, -NList).
+%% p(X,Y,P) - data konstruktor: policko o souradnici X,Y ma hodnotu P
+%convert_area(Area, NList) :- convert_area( Area, NList, 0, _).
+%
+%convert_area([],[],C,C).
+%convert_area([Row | Rest], Result, C, Acum):-	C1 is C + 1, convert_area(Rest, Pom,C1, Acum1), 
+%						Acum is Acum1 - 1, convert_line( Row, Out, Acum), 
+%						append( Out,Pom, Result).
+%
+%convert_line(Row, Out, Acum) :- convert_line( Row, Out, Acum, 0, _).
+%convert_line([],[],_,Acum,Acum).
+%convert_line([P|R], [p(X,Y,P)| V], Y, C,X ) :- 	C1 is C + 1, 
+%						convert_line(R, V, Y, C1, X1), 
+%						X is X1 -1.
+%%-----------------------------------------------------------------------------------------------
+%
+%% najde prazdne misto, co nejvice vlevo a nahore
+%% find(+Area,?X,?Y)
+%find_free_place([], _ , _):-!,fail.
+%find_free_place([p(X,Y,Z)|_],A,B):- Z \= n, Z=:=0, A is X, B is Y.
+%find_free_place([_|NArea],X,Y):-find_free_place(NArea,X,Y).
+%
+%%-----------------------------------------------------------------------------------------------
+%
+%% umisti na souradnice X,Y dany obrazec
+%% put_piece( +X, +Y, +piece, +Area, -New_area)
+%put_piece( X, Y, piece(Name,Seznam), Area, New_area) :- put_piece( X, Y, X, Y, piece(Name, Seznam), Area, New_area).
+%
+%put_piece( _, _, X1,Y1, piece(Name,[]) , Area ,New_area) :- put_one(X1,Y1,Name,Area,New_area).
+%put_piece( X, Y, X1,Y1, piece(Name, [d(DX,DY)|R]), Area,New_area2) :- put_one(X1,Y1,Name,Area,New_area),
+%						    X2 is X + DX, Y2 is Y + DY, 
+%						    find_free_place(Area, X2, Y2),!,
+%						    put_piece(X,Y,X2,Y2, piece(Name, R), New_area, New_area2).
+%
+%put_one(X,Y,Name, Area, New_area):-append(Zac, [p(A,B,_)|R], Area), X =:= A, Y =:= B,!, append(Zac,[p(A,B,Name)|R],New_area).
+%
+%%------------------------------------------------------------------------------------------------
+%
+% zkonvertuje piece zadany jako seznam [[],[],[],..] na dat. strukturu piece(Name, [d(x,y)]), kde d(x,y) urcuje relativni souradnici vuci ctverecku 0,0
+% convert_piece(+Seznam, +Name, -Dat).
+convert_piece(Seznam, Name, piece(Name,Dat)) :- 	convert_area( Seznam, Pom_dat), find_free_place( Pom_dat, X,Y), !,
+							convert_data( Pom_dat, X, Y, Dat).
+convert_data( [], _, _, [] ).
+convert_data( [ p(X,Y,_)|R], A,B, Out)  :- X=:=A, Y=:=B,!, convert_data(R,A,B,Out).
+convert_data( [ p(_,_,n)|R], X,Y, Out ) :- convert_data(R,X,Y,Out).
+convert_data( [ p(X,Y,Z)|R], A,B, [ d(C,D)| Out]) :- Z\=n, C is X - A, D is Y - B, convert_data( R, A, B , Out).
+
+%----------------------------------------------------------------------------------------------
+
+% prevede danou plochu na seznam souradnic
+% convert_area(+Area, -NList).
+% p(X,Y,P) - data konstruktor: policko o souradnici X,Y ma hodnotu P
+convert_area(Area, NList) :- convert_area( Area, NList, 0, _).
+
+convert_area([],[],C,C).
+convert_area([Row | Rest], Result, C, Acum):-	C1 is C + 1, convert_area(Rest, Pom,C1, Acum1), 
+						Acum is Acum1 - 1, convert_line( Row, Out, Acum), 
+						append( Out,Pom, Result).
+
+convert_line(Row, Out, Acum) :- convert_line( Row, Out, Acum, 0, _).
+convert_line([],[],_,Acum,Acum).
+convert_line([P|R], [p(X,Y,P)| V], Y, C,X ) :- 	C1 is C + 1, 
+						convert_line(R, V, Y, C1, X1), 
+						X is X1 -1.
+%-----------------------------------------------------------------------------------------------
+
+% najde prazdne misto, co nejvice vlevo a nahore
+% find(+Area,?X,?Y)
+find_free_place([], _ , _)		:- !,fail.
+find_free_place([p(X,Y,Z)|_],A,B)	:- Z \= n, Z=:=0, A is X, B is Y.
+find_free_place([_|NArea],X,Y)		:- find_free_place(NArea,X,Y).
+%
+
+%
+%------------------------------------------------------------------------------------------------
+%
+% rotuje danou matici o 90 stupnu vlevo
+% rotate_matrixL( +M, -R).
+rotate_matrixL([[]|_],[]).
+rotate_matrixL(V,[R|M]):-distribute(V,R,Mpom),rotate_matrixL(Mpom,M).
+
+	%distribute : rozdeli prvni prvky z kazdeho radku do pole S, od posledniho k prvnimu
+	%distribute : distribute(+M,-S,-M1) ---> z M generuje radek S a z M se pak stava odebranim prvku M1
+	%reseno pomoci AKUMULATORU
+distribute(M,S,M1) :- distribute(M, [], S, M1).
+distribute([],S,S,[]).
+distribute([[X|R]|M],S,Pom,[R|M1]):-distribute(M,[X|S],Pom,M1).
+%-------------------------------------------------------------------------------------------------
+
+% preklopeni matice dle vodorovne osy symetrie
+% tipup_matrix(+In, -Out) 
+
+%-------------------------------------------------------------------------------------------------
+
+% vytvori redukovany seznam vsech moznych rotaci daneho obrazce
+% make_1piece_list(+Piece, +Name, -List). Piece = [ [..],[..],...], List = [ piece(name,data),...]
+make_1piece_list(Piece, Name, List) :- 	make_1piece_list(Piece,Out),
+					convert_piece_list(Out, Name, List).
+convert_piece_list([],_,[]).
+convert_piece_list([A|R], Name, [Out2|Out]) :-convert_piece_list(R, Name, Out),convert_piece(A,Name,Out2).
+
+make_1piece_list(Piece, List)	:- 		add_2_list(Piece, [], L1), 
+						rotate_matrixL(Piece, Out1),
+						add_2_list(Out1, L1, L2),
+						rotate_matrixL(Out1, Out2),
+						add_2_list(Out2, L2, L3),
+						rotate_matrixL(Out2, Out3),
+						add_2_list(Out3, L3, List).
+add_2_list(Piece, In, In)	:- member(Piece,In),!.
+add_2_list(Piece, In, [Piece|In]).
+%add_2_list([ [0|R]|R2],In,[ [[0|R]|R2 ]|In ]):-!.
+%add_2_list(Piece,In,Out):-append(In, [Piece],Out).
+%-------------------------------------------------------------------------------------------------
+
+% vytvori seznam seznamu vsech moznych obrazcu a pojmenuje je
+% make_all_pieces_list( +Pieces, -Out)
+
+make_all_pieces_list( Pieces, Out ) 	:- make_all_pieces_list( Pieces, Out, 1, _).
+make_all_pieces_list( [], [], C, C).
+make_all_pieces_list( [Piece|R] , [Con|Out], C, Acum) :- 	C1 is C + 1, make_all_pieces_list( R, Out, C1, Acum1), 
+								Acum is Acum1 - 1,  
+								make_1piece_list(Piece, Acum, Con).
+
+%-------------------------------------------------------------------------------------------------
+
+
+% cte ze souboru tvar plochy (seznam)
+% read_board_from_file( +file, -Board).
+read_board_from_file( File, Board) 	:- 	see(File), read_board(Board),seen.
+
+read_board(Board)			:-
+					read_oneline(S1), trans_line(S1,S),
+					( ( S = [], Board=[], ! )
+					  ;
+					  ( read_board(B), Board=[S|B] )
+					).
+% cte pieces z file
+% read_pieces_from_file( +File, -Pieces )
+read_pieces_from_file( File, Pieces) 	:- see(File), read_pieces(Pieces), seen.
+read_pieces(Pieces) 			:- read_piece(X), 
+					   ( (X=[], Pieces=[],!)
+						;
+					     (  
+					   	read_pieces(P1), Pieces=[X|P1]
+					   )).
+
+read_piece(P)				:- read_oneline(S1), trans_line(S1,S),
+					   ( (S=[n],P=[],!) 
+						;
+					     ( S=[], P=[], !)
+						;
+					     ( read_piece(P1), P=[S|P1] )
+					   ).
+
+trans_line([],[]).
+trans_line([48|R],[0|Out])		:-trans_line(R,Out).
+trans_line([110|R],[n|Out])		:-trans_line(R,Out).
+
+read_oneline(S) :- 	get0(X),
+			( X = -1, S=[],!
+			  ;
+			  (X = 10;X=13),
+			  S = [], !
+			  ;	
+			  read_oneline(S1), S=[X|S1]
+			).	
+					
+					
+%-------------------------------------------------------------------------------------------------
+
+%solver(Area , Pieces, Result ) 		:- 	convert_area(Area, Board), 
+%				 		make_all_pieces_list( Pieces, NPieces),!,
+%						solve(Board, NPieces, Result),!, % ! = chci jen jedno reseni
+%						print_board(Result).
+%
+%solve( Board, [], _ )  			:- find_free_place( Board, _, _),!,print_board(Board),fail.
+%solve( Board, [], Board).
+%
+%solve( Board, [Piece_list|Rest_pieces], NBoard )		:- 
+%					   %get_piece_list(NPieces, Piece_list, Rest_pieces),
+%					   get_piece(Piece_list,Piece),
+%					   find_free_place(Board, X, Y), 
+%					   put_piece( X, Y, Piece ,Board, Board1), 
+%					   print_board(Board1),
+%					   solve(Board1, Rest_pieces, NBoard).
+%
+%get_piece([],_)				:- fail.
+%get_piece(T,A)				:- append(_,[A|_],T).
+%
+%get_piece_list([],_,[])			:- fail.
+%%get_piece_list(NPieces,Piece,Rest) 	:- append(X,[Piece|Y],NPieces), append(X,Y,Rest).
+%get_piece_list([O|Rest],O, Rest).
+%
+%demo2(X):- solver( [ [0,0,0,0],[0,0,n,0],[0,n,0,0],[0,0,0,0]],[ [[0,0],[0,0],[0,n]] ,
+%								[[0,0],[n,0]], 
+%								[[0,0]] , [[0,0],[0,0]] ], X).
+%
+%demo3(X):- read_board_from_file('board.in', Board),read_pieces_from_file('pieces.in',Pieces),
+%		!,
+%		solver( Board ,Pieces, X).
+%			
+%demo(X)	:-solver([ [0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],
+%		  [0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]],
+%		[ [ [0,n,n],[0,n,n],[0,0,0] ],
+%		  [ [0,0,0],[n,0,n],[n,0,n] ],
+%		  [ [n,n,0],[n,0,0],[0,0,n] ],
+%		  [ [n,0,n],[0,0,0],[n,0,n] ],
+%		  [ [0,n,0],[0,0,0] ],
+%		  [ [0,0,n],[n,0,n],[n,0,0] ],
+%		  [ [n,0,0],[0,0,n],[n,0,n] ],
+%		  [ [0,0],[0,0],[0,n] ],
+%		  [ [0,0,0,0,0] ],
+%		  [ [n,0], [0,0], [0,n],[0,n] ],
+%		  [ [n,0],[0,0],[n,0],[n,0] ],
+%		  [ [0,n],[0,n],[0,n],[0,0] ]
+%		],
+%		X).
+%
+% spocita rozmery plochy
+% count_size(+Area, -Rows, -Col)
+count_size([A|Area], Rows, Col) :- length(A,Col), length( [A|Area], Rows).
+
+%-------------------------------------------------------------------------------------------------
+% vytvori predikat Board z dane Area o rozmerech Rows x Col
+% make_board( +Area, -Rows, -Col, -Board )
+make_board( Area, Rows, Col, Board) 	:- 	count_size(Area, Rows,Col) , 
+						make_func_board(Rows,Col,Board), 
+						fill_board(Area, Board, Col).
+
+make_func_board(Rows,Col, Board) 	:- Total is Rows*Col, functor(Board,b, Total).
+
+fill_board(Area,Board,Col):-fill_board(Area,Board,Col, 0, _).
+
+fill_board([], _, _, C,C).
+fill_board([Line|Rest], Board, Col, C,Acum) :- 	C1 is C + 1, 
+						fill_board(Rest, Board, Col, C1, Acum1),
+						Acum is Acum1 - 1,
+						fill_board_line(Line, Board, Col, Acum).
+fill_board_line(Line, Board, Col, Row) :- fill_board_line(Line, Board, Col, Row, 0, _).
+fill_board_line([],_,_,_,Ac,Ac).
+fill_board_line([P|Rest], Board, Col, Row, C, Acu) :- 	C1 is C + 1,
+							fill_board_line(Rest, Board, Col, Row, C1, Acu1),
+							Acu is Acu1 - 1,
+							set_up_board(Acu, Row, Col, P, Board).
+set_up_board(_,_,_,0,_):-!.
+set_up_board(I,J,Col,P,Board)	:-	look_up_board(I,J,Col, Board,P).
+
+% nastavi na pozici I,J X v board, Col je pocet sloupcu, cislovani je [0,0]...
+% look_up_board(+I,+J,+Col,+Board,?X). 
+look_up_board(I,J,Col, Board, X)	:- P is J*Col + I + 1, arg(P, Board, X).
+
+%----------------------------------------------------------------------------------------------------
+
+% zkusi dat Piece na pozici X,Y v Board,
+% put_piece(+X,+Y, +Maxx, +Maxy, +Piece, ?Board)
+% mozna osetrit trosku jinak A>=...
+put_piece(X,Y, Col,_, piece(Name, []), Board) 				:- look_up_board(X,Y,Col, Board, Name),!.
+put_piece(X,Y, Maxx, Maxy, piece(Name, [d(DX,DY)|R]), Board )		:-
+									A is X + DX, B is Y + DY, 
+									A>=0,A <Maxx, B>=0, B <Maxy,
+							   	   	look_up_board(A,B,Maxx, Board, Name),!,
+							   	   	put_piece(X,Y, Maxx, Maxy, piece(Name,R), Board ).
+
+solverF( File_board, File_pieces, Result) 	:-
+							read_board_from_file( File_board, Board),
+							read_pieces_from_file( File_pieces, Pieces),!,
+							solver( Board, Pieces, Result).
+
+solver( Area, Pieces, Board ) :- 	make_board(Area, Rows, Col, Board), 
+					make_all_pieces_list( Pieces, NPieces), !,
+					solve( Board, Rows, Col, NPieces), !,  % !=chci jen jedno reseni
+					write_board(Board, Rows, Col).
+
+solve( _,_,_, []):-!.
+solve( Board, Rows, Col, [Piece_list| Rest_pieces]) 	:-
+							get_piece( Piece_list, Piece),
+							try_to_put_piece(Piece,Board,Rows, Col),
+						%	dwrite_board(Board,Rows,Col),
+							solve(Board, Rows, Col, Rest_pieces).
+
+get_piece([],_)				:- fail.
+get_piece(T,A)				:- append(_,[A|_],T).
+
+%try_to_put_piece( [],_,_,_):-fail.
+try_to_put_piece( Piece, Board, Rows, Col) :- for(Y,0, Rows),
+						for(X,0, Col),
+						 put_piece(X,Y, Col, Rows, Piece, Board).
+write_board(B,Rows, Col) 	:-nl,	
+			  	for(Y,0, Rows),
+				nl,
+					for(X,0,Col),
+					look_up_board(X,Y,Col, B, Out),
+					my_write(Out),fail
+					.
+
+dwrite_board(B,Rows, Col) 	:-!,nl,	
+			  	for(Y,0, Rows),
+				nl,
+					for(X,0,Col),
+					look_up_board(X,Y,Col, B, Out),
+					my_write(Out)
+					.
+
+my_write(P)		 :- var(P), write('.'),write(' '),!.
+my_write(P) 		 :- P=n, write('  '),!.
+my_write(P)		 :- X is P + 64, char_code(Char, X), write(Char),write(' ').
+
+for(M,M,N):- M < N.
+for(I,M,N):- M < N, M1 is M + 1, for(I,M1,N).	
+%solver(Area , Pieces, Result ) 		:- 	convert_area(Area, Board), 
+%				 		make_all_pieces_list( Pieces, NPieces),!,
+%						solve(Board, NPieces, Result),!, % ! = chci jen jedno reseni
+%						print_board(Result).
+%
+%solve( Board, [], _ )  			:- find_free_place( Board, _, _),!,print_board(Board),fail.
+%solve( Board, [], Board).
+%
+%solve( Board, [Piece_list|Rest_pieces], NBoard )		:- 
+%					   %get_piece_list(NPieces, Piece_list, Rest_pieces),
+%					   get_piece(Piece_list,Piece),
+%					   find_free_place(Board, X, Y), 
+%					   put_piece( X, Y, Piece ,Board, Board1), 
+%					   print_board(Board1),
+%					   solve(Board1, Rest_pieces, NBoard).
+%
+%get_piece([],_)				:- fail.
+%get_piece(T,A)				:- append(_,[A|_],T).
+%
+%get_piece_list([],_,[])			:- fail.
+%%get_piece_list(NPieces,Piece,Rest) 	:- append(X,[Piece|Y],NPieces), append(X,Y,Rest).
+%get_piece_list([O|Rest],O, Rest).
+
+solve_pent(X, Y, Col, Board) :-
+	get_search_list(List, 1, 1, X, Y, Col, Board),
+	Pts = ['F','I','L','N','P','T','U','V','W','Y','Z'],
+	solve_pent0(Pts, List, Col, Board).
+
+solve_pent0([], _, _, _) :- !.
+solve_pent0(Pts, [(N, E)|Ls], Col, Board) :-
+	var(E),
+	!,
+	pent_select(P, Pts, Pts1),
+	place_pent(P, N, Col, Board),
+	solve_pent0(Pts1, Ls, Col, Board).
+solve_pent0(Pts, [_|Ls], Col, Board) :-
+	solve_pent0(Pts, Ls, Col, Board).
+
+
+get_search_list([], I, J, X, Y, _, _) :-
+	J =:= Y+1, I =:= X-1, 
+	!.
+get_search_list(L, I, J, X, Y, Col, B) :-
+	I =:= 0, J =< X,
+	!,
+	get_search_list(L, J, 1, X, Y, Col, B).
+get_search_list(L, I, J, X, Y, Col, B) :-
+	I =:= 0, J > X,
+	!,
+	J1 is J-X+1,
+	get_search_list(L, X, J1, X, Y, Col, B).
+get_search_list(L, I, J, X, Y, Col, B) :-
+	J =:= Y+1,
+	!,
+	J1 is I+2+Y-X,
+	get_search_list(L, X, J1, X, Y, Col, B).
+get_search_list([(N,Z)|Ls], I, J, X, Y, Col, B) :-
+	N is Col*I+J+1,
+	arg(N, B, Z),
+        var(Z),
+        !,
+        I1 is I-1,
+        J1 is J+1,
+	get_search_list(Ls, I1, J1, X, Y, Col, B).
+get_search_list(L, I, J, X, Y, Col, B) :-
+        I1 is I-1,
+        J1 is J+1,
+	get_search_list(L, I1, J1, X, Y, Col, B).

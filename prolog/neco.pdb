@@ -1,0 +1,5 @@
+% prvni program v prologu
+
+member(X,[]).
+member(X,[_|S]):-member(X,[X|S]).
+

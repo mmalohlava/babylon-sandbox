@@ -1,0 +1,485 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ZAPOCTOVY PRIKLAD					    %%
+%% PENTOMINO						    %%
+%% Zadani: ulohou je vyplnit danou plochu danymi obrazcemi  %%
+%% IN	: plocha, obrazce				    %%
+%% OUT	: pokryta oblast nebo nema reseni		    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AUTOR	: Michal Malohlava			    %%
+%% DATUM	: 9.1.2003				    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% zkonvertuje piece() zadany jako seznam [[],[],[],..] na dat. strukturu piece(Name, [d(x,y)]), kde d(x,y) urcuje relativni souradnici vuci ctverecku 0,0
+% convert_piece(+Seznam, +Name, -Dat).
+convert_piece(Seznam, Name, piece(Name,Dat)) :- 	convert_area( Seznam, Pom_dat), !, find_left_place( Pom_dat, X,Y), !,
+							convert_data( Pom_dat, X, Y, Dat).
+
+% zkonvertuje seznam souradnic, na souradnice relativni k danemu bodu
+convert_data( [], _, _, [] ).
+convert_data( [ p(X,Y,_)|R], A,B, Out)  :- X=:=A, Y=:=B, !, convert_data(R,A,B,Out).
+convert_data( [ p(_,_,n)|R], X,Y, Out ) :- convert_data(R,X,Y,Out).
+convert_data( [ p(X,Y,Z)|R], A,B, [ d(C,D)| Out]) :- Z\=n, C is X - A, D is Y - B, convert_data( R, A, B , Out).
+
+% najde prvni nenulovou pozici, co nejvice nahore a vlevo
+find_left_place( [], X,Y):- X=1000,Y=1000,!.
+find_left_place( [p(X,Y,0)|Data], X1, Y1):- find_left_place(Data,X2,Y2),!, (X2 >= X, X1 = X, Y1=Y; X1=X2, Y1=Y2).
+find_left_place( [_|Data],X,Y) :- find_left_place(Data,X,Y).
+%----------------------------------------------------------------------------------------------
+
+% prevede danou plochu [[..],[..],..] na seznam souradnic [p(X,Y,Co),...]
+% convert_area(+Area, -NList).
+% p(X,Y,P) - struktura: policko o souradnici X,Y ma hodnotu P
+convert_area(Area, NList) :- convert_area( Area, NList, 0, _).
+
+convert_area([],[],C,C).
+convert_area([Row | Rest], Result, C, Acum):-	C1 is C + 1, convert_area(Rest, Pom,C1, Acum1), 
+						Acum is Acum1 - 1, convert_line( Row, Out, Acum), 
+						append( Out,Pom, Result).
+
+convert_line(Row, Out, Acum) :- convert_line( Row, Out, Acum, 0, _).
+convert_line([],[],_,Acum,Acum).
+convert_line([P|R], [p(X,Y,P)| V], Y, C,X ) :- 	C1 is C + 1, 
+						convert_line(R, V, Y, C1, X1), 
+						X is X1 - 1.
+%-----------------------------------------------------------------------------------------------
+
+% najde prazdne misto, co nejvice vlevo a nahore
+% find(+Area,?X,?Y)
+find_free_place([], _ , _)		:- !,fail.
+find_free_place([p(X,Y,Z)|_],A,B)	:- Z \= n, Z=:=0, A is X, B is Y.
+find_free_place([_|NArea],X,Y)		:- find_free_place(NArea,X,Y).
+%
+
+%
+%------------------------------------------------------------------------------------------------
+%
+% rotuje danou matici o 90 stupnu vlevo
+% rotate_matrixL( +M, -R).
+rotate_matrixL([[]|_],[]).
+rotate_matrixL(V,[R|M]):-distribute(V,R,Mpom),rotate_matrixL(Mpom,M).
+
+	%distribute : rozdeli prvni prvky z kazdeho radku do pole S, od posledniho k prvnimu
+	%distribute : distribute(+M,-S,-M1) ---> z M generuje radek S a z M se pak stava odebranim prvku M1
+	%reseno pomoci AKUMULATORU
+distribute(M,S,M1) :- distribute(M, [], S, M1).
+distribute([],S,S,[]).
+distribute([[X|R]|M],S,Pom,[R|M1]):-distribute(M,[X|S],Pom,M1).
+%-------------------------------------------------------------------------------------------------
+
+% preklopeni matice dle vodorovne osy symetrie
+% tipup_matrix(+In, -Out) 		
+tipup_matrix(In, Out) :- reverse(In, Out).
+%tipup_matrix( In, Out) :- tipup_matrix( In, In, Left, Right ), reverse(Left, L), reverse(Right,R), append(R,L, Out).
+%tipup_matrix( [], Right, [], Right).
+%tipup_matrix( [_], Right, [], Right).
+%tipup_matrix( [_,_|R1], [C|R2], [C|Left], Right) :-	tipup_matrix(R1, R2, Left, Right).
+
+
+%-------------------------------------------------------------------------------------------------
+
+% vytvori redukovany seznam vsech moznych rotaci daneho obrazce, vynecha shodne pozice
+% make_1piece_list(+Piece, +Name, -List). Piece = [ [..],[..],...], List = [ piece(name,data),...]
+make_1piece_list(Piece, Name, List) :- 	make_1piece_list(Piece,Out),
+					convert_piece_list(Out, Name, List).
+convert_piece_list([],_,[]).
+convert_piece_list([A|R], Name, [Out2|Out]) :-convert_piece_list(R, Name, Out),convert_piece(A,Name,Out2).
+
+make_1piece_list(Piece, List)	:- 		add_2_list(Piece, [], L1), 
+						rotate_matrixL(Piece, Out1),
+						add_2_list(Out1, L1, L2),
+						rotate_matrixL(Out1, Out2),
+						add_2_list(Out2, L2, L3),
+						rotate_matrixL(Out2, Out3),
+						add_2_list(Out3, L3, L4),
+						tipup_matrix(Piece, Out4),
+						add_2_list(Out4,L4 , L5), 
+						rotate_matrixL(Out4, Out5),
+						add_2_list(Out5, L5, L6),
+						rotate_matrixL(Out5, Out6),
+						add_2_list(Out6, L6, L7),
+						rotate_matrixL(Out6, Out7),
+						add_2_list(Out7, L7, List).
+
+add_2_list(Piece, In, In)	:- member(Piece,In),!.
+add_2_list(Piece, In, [Piece|In]).
+%add_2_list([ [0|R]|R2],In,[ [[0|R]|R2 ]|In ]):-!.
+%add_2_list(Piece,In,Out):-append(In, [Piece],Out).
+
+%-------------------------------------------------------------------------------------------------
+
+% vytvori seznam seznamu vsech moznych obrazcu a pojmenuje je cisly
+% make_all_pieces_list( +Pieces, -Out)
+
+make_all_pieces_list( Pieces, Out ) 	:- 			make_all_pieces_list( Pieces, Out, 1, _).
+make_all_pieces_list( [], [], C, C).
+make_all_pieces_list( [Piece|R] , [Con|Out], C, Acum) :- 	C1 is C + 1, make_all_pieces_list( R, Out, C1, Acum1), 
+								Acum is Acum1 - 1,  
+								make_1piece_list(Piece, Acum, Con).
+
+%-------------------------------------------------------------------------------------------------
+
+
+% cte ze souboru tvar plochy (seznam)
+% read_board_from_file( +file, -Board).
+read_board_from_file( File, Board) 	:- 	see(File), read_board(Board),seen.
+
+read_board(Board)			:-
+					read_oneline(S1), trans_line(S1,S),
+					( ( S = [], Board = [], ! )
+					  ;
+					  ( read_board(B), Board=[S|B] )
+					).
+% cte pieces z file
+% read_pieces_from_file( +File, -Pieces )
+read_pieces_from_file( File, Pieces) 	:- see(File), read_pieces(Pieces), seen.
+read_pieces(Pieces) 			:- read_piece(X), 
+					   ( (X=[], Pieces=[],!)
+						;
+					     (  
+					   	read_pieces(P1), Pieces=[X|P1]
+					   )).
+
+read_piece(P)				:- read_oneline(S1), trans_line(S1,S),
+					   ( (S=[n],P=[],!) 
+						;
+					     ( S=[], P=[], !)
+						;
+					     ( read_piece(P1), P=[S|P1] )
+					   ).
+
+trans_line([],[]).
+trans_line([48|R],[0|Out])		:-trans_line(R,Out).
+trans_line([110|R],[n|Out])		:-trans_line(R,Out).
+
+read_oneline(S) :- 	get0(X),
+			( X = -1, S=[],!
+			  ;
+			  (X = 10;X=13),
+			  S = [], !
+			  ;	
+			  read_oneline(S1), S=[X|S1]
+			).	
+					
+				
+%-------------------------------------------------------------------------------------------------
+
+% spocita rozmery obdelnikove plochy
+% count_size(+Area, -Rows, -Col)
+count_size([A|Area], Rows, Col) :- length(A,Col), length( [A|Area], Rows).
+
+%-------------------------------------------------------------------------------------------------
+
+% spocita velikost plochy k pokryti, tj. count_size - vyriznute_casti
+% count_board_size(+Area, Count )
+count_board_size( [], 0).
+count_board_size( [T|Area], Count ) :- 	count_line_size( T, Cline),
+					count_board_size( Area, Crest), 
+					Count is Cline + Crest.
+count_line_size( [], 0).
+count_line_size( [n|R],Count) 	:- count_line_size(R, Count).
+count_line_size( [0|R],Count)	:- count_line_size(R, C1) , Count is C1 + 1.
+
+%-------------------------------------------------------------------------------------------------
+
+% spocita velikost dilku k pokryti
+% count_pieces_size( +Pieces, -Count)
+
+count_pieces_size( [] , 0).
+count_pieces_size( [P|R], Count ) 	:- 	count_board_size( P, Cpieces ),
+						count_pieces_size(R, Crest),
+						Count is Cpieces + Crest.
+
+%-------------------------------------------------------------------------------------------------
+% vytvori predikat Board z dane Area o rozmerech Rows x Col
+% make_board( +Area, -Rows, -Col, -Board )
+make_board( Area, Rows, Col, Board) 	:- 	count_size(Area, Rows,Col) , 
+						make_func_board(Rows,Col,Board), 
+						fill_board(Area, Board, Col).
+
+make_func_board(Rows,Col, Board) 	:- Total is Rows*Col, functor(Board,b, Total).
+
+fill_board(Area,Board,Col):-fill_board(Area,Board,Col, 0, _).
+
+fill_board([], _, _, C,C).
+fill_board([Line|Rest], Board, Col, C,Acum) :- 	C1 is C + 1, 
+						fill_board(Rest, Board, Col, C1, Acum1),
+						Acum is Acum1 - 1,
+						fill_board_line(Line, Board, Col, Acum).
+fill_board_line(Line, Board, Col, Row) :- fill_board_line(Line, Board, Col, Row, 0, _).
+fill_board_line([],_,_,_,Ac,Ac).
+fill_board_line([P|Rest], Board, Col, Row, C, Acu) :- 	C1 is C + 1,
+							fill_board_line(Rest, Board, Col, Row, C1, Acu1),
+							Acu is Acu1 - 1,
+							set_up_board(Acu, Row, Col, P, Board).
+set_up_board(_,_,_,0,_):-!.
+set_up_board(I,J,Col,P,Board)	:-	look_up_board(I,J,Col, Board,P).
+
+% nastavi na pozici I,J X v board, Col je pocet sloupcu, cislovani je [0,0]...
+% look_up_board(+I,+J,+Col,+Board,?X). 
+look_up_board(I,J,Col, Board, X)	:- P is J*Col + I + 1, arg(P, Board, X).
+
+%----------------------------------------------------------------------------------------------------
+
+% zkusi dat Piece na pozici X,Y v Board,
+% put_piece(+X,+Y, +Maxx, +Maxy, +Piece, ?Board)
+% mozna osetrit trosku jinak A>=...
+put_piece(N, _ ,_, piece(Name, []), Board) 				:- arg(N,Board,Name),!.
+put_piece(N, Col, MaxN, piece(Name, [d(DX,DY)|R]), Board )			:-
+									N1 is N + DX + Col*DY, N1 > 0, N1 =< MaxN,
+									arg(N1, Board, Name),!,
+							   	   	put_piece(N, Col, MaxN, piece(Name,R), Board ).
+%----------------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------------
+write_board(B,Rows, Col) 	:-nl,	
+			  	for(Y,0, Rows),
+				nl,
+					for(X,0,Col),
+					look_up_board(X,Y,Col, B, Out),
+					my_write(Out),fail
+					.
+
+dwrite_board(B,Rows, Col) 	:-!,nl,	
+			  	for(Y,0, Rows),
+				nl,
+					for(X,0,Col),
+					look_up_board(X,Y,Col, B, Out),
+					my_write(Out),fail
+					.
+dwrite_board(_,_,_).
+
+my_write(P)		 :- var(P), !,write('.'),write(' '),!.
+my_write(P) 		 :- P=n, !,write('  '),!.
+my_write(P)		 :- X is P + 64, char_code(Char, X), write(Char),write(' ').
+
+
+for(M,M,N):- M < N.
+for(I,M,N):- M < N, M1 is M + 1, for(I,M1,N).	
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+% nacte ze souboru Fb plochu a ze souboru Fp tvary dilku
+% read_files( +Fb, +Fp, -Area, -Pieces)
+read_files(Fb, Fp, Area, Pieces) 	:- 	read_board_from_file(Fb, Area), read_pieces_from_file(Fp, Pieces),!.
+
+% control size - zkontroluje trivialni reseni, tj. kdyz si pocet policek plochy a velikost dilku neodpovidaji
+% control_size(+Area, +Pieces).
+control_size(A,P) :- 	count_board_size(A, Ca), count_pieces_size(P, Cp), Ca =\= Cp, 
+			nl,writeln(' Uloha nema reseni - velikost dilku nestaci k pokryti plochy!!'),!.
+control_size(_,_).
+
+% vyresi danou ulohu , plocha je zadana v souboru Fb, plosky v souboru Fp - jednotlive oddelene radky
+% sl( +Fb, +Fp, -Board)
+sl(Fb, Fp, Board) :- 	read_files(Fb,Fp,Area, Pieces),!,
+			control_size(Area,Pieces),
+			make_board(Area, Rows,Col, Board),  
+			make_all_pieces_list(Pieces, NPieces),!,
+			solve_pent(Col, Rows,Col, Board, NPieces),!, 
+			write_board(Board, Rows,Col).
+
+sl2(Area, Pieces, Board)	:- 	control_size(Area, Pieces),
+					make_board(Area, Rows,Col, Board),  
+					make_all_pieces_list(Pieces, NPieces),!,
+					solve_pent(Col, Rows,Col, Board, NPieces),!, 
+					write_board(Board, Rows,Col).
+					
+%sl(Fb, Fp, Board) :- 	read_board_from_file( Fb, Area), 
+%			read_pieces_from_file( Fp, Pieces), 
+%			make_board(Area, Rows,Col, Board),  
+%			make_all_pieces_list(Pieces, NPieces),!,
+%			solve_pent(Col, Rows,Col, Board, NPieces),!, 
+%			write_board(Board, Rows,Col).
+	
+solve_pent(X, Y, Col, Board,Pieces) :- 	TotalN is X*Y,!,
+					get_search_list(List, 0, 0, X, X, Col, Board),
+					solve_pent0(Pieces, List, Col, TotalN, Board).
+
+solve_pent0([], _, _, _,_) :- !.
+solve_pent0(Pts1, [(N, E)|Ls], Col, TotalN, Board) :- 
+							var(E),
+							!,
+							get_piece_list(Pts1, A, Rest),
+							get_piece(A,Piece),
+							put_piece(N, Col,TotalN,Piece,Board), 
+							solve_pent0(Rest, Ls, Col, TotalN,Board).
+
+solve_pent0(Pts, [_|Ls], Col, TotalN, Board) :-
+							solve_pent0(Pts, Ls, Col, TotalN,Board).
+
+% vytvori vyhledavaci seznamu policek z Board ->
+% 124
+% 357
+% 689
+%
+% get_search_list(-List, +ZacX,+ZacY, +KonecX, +KonecY, +Columns, +Board )
+get_search_list([], I, J, X, Y, _, _) :-
+	J =:= Y+1, I =:= X-1, 
+	!.
+get_search_list(L, I, J, X, Y, Col, B) :-
+	I =:= -1, J =< X,
+	!,
+	get_search_list(L, J, 0, X, Y, Col, B).
+get_search_list(L, I, J, X, Y, Col, B) :-
+	I =:= -1, J > X,
+	!,
+	J1 is J-X+1,
+	get_search_list(L, X, J1, X, Y, Col, B).
+get_search_list(L, I, J, X, Y, Col, B) :-
+	J =:= Y+1,
+	!,
+	J1 is I+2+Y-X,
+	get_search_list(L, X, J1, X, Y, Col, B).
+get_search_list([(N,Z)|Ls], I, J, X, Y, Col, B) :-
+	N is Col*I+J+1,
+	arg(N, B, Z),
+        var(Z),
+        !,
+        I1 is I-1,
+        J1 is J+1,
+	get_search_list(Ls, I1, J1, X, Y, Col, B).
+get_search_list(L, I, J, X, Y, Col, B) :-
+        I1 is I-1,
+        J1 is J+1,
+	get_search_list(L, I1, J1, X, Y, Col, B).
+
+% ze seznamu obrazcu vrati jeden (Piece) a zbytek seznamu (Rest)
+% get_piece_list( +Piece_list, -Piece, -Rest)
+get_piece_list([],_,[])			:- fail.
+get_piece_list(NPieces,Piece,Rest) 	:- append(X,[Piece|Y],NPieces), append(X,Y,Rest).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+banner :- 	nl,nl,
+		write( 'RESITEL PENTOMINO'),nl,nl, 
+	 	write( 'Vyber si moznost:'),nl,
+		write( ' 1. demo 1 - plocha 12x5'),nl,
+		write( ' 2. demo 2 - plocha 10x6'),nl,
+		write( ' 3. demo 3 - plocha 15x4'),nl,
+		write( ' 4. demo 4 - plocha 20x3'),nl,
+		write( ' 5. demo 5 - plocha X'),nl,
+		write( ' 6. demo 6 - plocha 8x8'),nl,
+		write( ' 7. vlastni vyber'),nl,nl,
+		write('Volba? ').
+
+banner2 :-	nl,nl,
+		write('Vyber si akci: '),nl,
+		write(' 1. Zobraz plochu'),nl,
+		write(' 2. Zobraz dilky'),nl,
+		write(' 3. Najdi reseni'),nl,nl,
+		write('Volba? ').
+
+main :- 	repeat,	
+			banner, read_int(N1), 
+		N1>0, N1<8,
+		!,
+		set_files(N1, Fb, Fp),!,	% kdyby nahodou read_files neuspelo, tak az se nenastavi jiny soubor.
+		read_files(Fb,Fp, Area, Pieces),
+		!,
+		repeat,
+			banner2, read_int(N2),
+		( N2>0, N2<3, do_action(N2,Area,Pieces),fail
+		;
+		N2 =:= 3, !, do_action(N2, Area, Pieces) 
+		).
+
+read_int(N):- 		read_int(N,0).
+read_int(N,N1):-	get0(C),
+			((C = 10;C=13), N is N1,!
+			;
+			C >= "0", C =< "9", N2 is N1*10 + C - "0", read_int(N,N2),!
+			).
+
+set_files(1, 'board12x5.in', 'pieces12x5.in').
+set_files(2, 'board10x6.in', 'pieces10x6.in').
+set_files(3, 'board15x4.in', 'pieces15x4.in').
+set_files(4, 'board20x3.in', 'pieces20x3.in').
+set_files(5, 'boardX.in', 'piecesX.in').
+set_files(6, 'board8x8.in','pieces8x8.in').
+set_files(_, Fb, Fp)	:- 	nl, write('Zadej nazev souboru, ktery obsahuje plochu k pokruti: '),
+				read_line(L1), name(Fb, L1), nl, 
+				write('Zadej nazev souboru, ktery obsahuje dilky: '),
+				read_line(L2), name(Fp, L2),nl.
+
+read_line(Line)	:- 	get0(C),
+			( 
+			(C=10; C=13), !, Line = []
+			;
+			read_line(L1), Line = [C|L1]
+			).
+			
+
+do_action(1,Area,_) 	:- 		nl, write('TVAR PLOCHY:'),nl, print_area(Area).
+do_action(2,_, Pieces) 	:-		nl, write('TVAR DILKU:'), nl, print_pieces(Pieces).
+do_action(3,Area,Pieces):-		nl,nl,
+					write('RESENI:'),
+					sl2(Area, Pieces, Result).
+
+% tiskne zadanou plochu na obrazovku
+% print_area(+P), P - seznam seznamu
+print_area([])		:- nl.
+print_area([H|T])	:- print_one_line(H,2), nl, print_area(T).
+
+print_one_line([],_).
+print_one_line([0|T],R):- write('. '),print_one_line(T,R).
+print_one_line([n|T],R):- write('  '), print_one_line(T,R).
+
+print_pieces(Pieces) 		:- print_pieces(Pieces, 0).
+print_pieces([],_)		:- nl,!.
+print_pieces([[]|R],C)		:- nl, print_pieces(R,C).
+print_pieces([P|R],C)		:- print_piece(P,C), C1 is C + 1, print_pieces(R, C1).
+
+print_piece([],_)		:- nl.
+print_piece([[]|R],Poc)		:- nl,print_piece(R,Poc).
+print_piece([ [0|P]| R], Poc)	:- C is Poc + "A", char_code(Char, C), write(Char), print_piece([P|R], Poc).
+print_piece([ [n|P]| R], Poc)	:- write(' '), print_piece([P|R], Poc).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END OF MAIN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	SLOW version							    %%
+%%	(bez vyhledavaciho seznamu - hola rekurze)			    %%
+%%									    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% vlastni reseni ulohy
+% najde reseni ulohy: 	plocha je ulozena v souboru File_board
+%			obrazce k pokryti jsou ulozeny ve File_pieces
+%			Result je predikat Board naplneny cisly obrazcu: b(..,...,...)
+% solverF( +File_board, +File_pieces, -Result )
+
+solverF( File_board, File_pieces, Result) 	:-
+							read_board_from_file( File_board, Board),
+							read_pieces_from_file( File_pieces, Pieces),!,
+							solver( Board, Pieces, Result).
+
+% stejne jako vyse, ale necte ze souboru
+solver( Area, Pieces, Board ) :- 	make_board(Area, Rows, Col, Board), 
+					make_all_pieces_list( Pieces, NPieces), !,
+					solve( Board, Rows, Col, NPieces), !,  % !=chci jen jedno reseni
+					write_board(Board, Rows, Col).
+
+% 
+solve( _,_,_, []):-!.
+solve( Board, Rows, Col, [Piece_list| Rest_pieces]) 	:-
+							get_piece( Piece_list, Piece),
+							try_to_put_piece(Piece,Board,Rows, Col),
+%							dwrite_board( Board, Rows, Col),
+							solve(Board, Rows, Col, Rest_pieces),!.
+% vyjme jeden obrazec ze seznamu obrazcu
+% get_piece(+Piece_list, -Piece )
+get_piece([],_)				:- fail.
+get_piece(T,A)				:- append(_,[A|_],T).
+
+%try_to_put_piece( [],_,_,_):-fail.
+try_to_put_piece( Piece, Board, Rows, Col) :- TotalN is Rows*Col,!,
+						for(X,1, TotalN), 
+						 put_piece( X, Col, TotalN,Piece, Board).
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%				END of PROGRAM				     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

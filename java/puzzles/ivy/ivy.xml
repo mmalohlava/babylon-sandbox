@@ -1,0 +1,7 @@
+<ivy-module version="1.0">
+    <info organisation="mycompany" module="mycomponent"/>
+    <dependencies>
+        <dependency name="commons-lang" rev="2.0"/>
+        <dependency name="log4j" rev="1.2.8"/>
+    </dependencies>
+</ivy-module>

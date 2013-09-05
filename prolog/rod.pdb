@@ -1,0 +1,38 @@
+%rod ----------> seznam deti je od nejstarsiho po nejmladsi....
+rod( otec, matka, [ bratr,sestra, nejbratr,nejsestra ]).
+muz(otec).
+muz(bratr).
+muz(nejbratr).
+zena(matka).
+zena(sestra).
+zena(nejsestra).
+
+%nejmladsi bratr: ----------------------------> nejbrat( Koho, Kdo) <--------------------------------
+najdi(X,[X|S],S).
+najdi(X,[Y|Z],S):-najdi(X,Z,S).
+
+samezeny([]).
+samezeny([Z|X]):-zena(Z),samezeny(X).
+
+nejmlmuz(Kdo, [X|S]):-nejmlmuz(Kdo,S).
+nejmlmuz(X, [X|S]):-samezeny(S),muz(X).
+
+nejbratr(Koho,Kdo):-rod(_,_,X),najdi(Koho,X,Y),nejmlmuz(Kdo,Y).
+%----------------------------------------------------------------------------------------------------
+
+%mladsi bratr ---------------------> mlbratr(Koho,Jekdo) <-----------------------------
+mlmuz(X,[X|S]):-muz(X).
+mlmuz(X,[X|S]):-mlmuz(X,S).
+mlbratr(Koho,Jekdo):-rod(_,_,S),najdi(Koho,S,Y),mlmuz(Jekdo,Y).
+%--------------------------------------------------------------------------------------
+
+%starsi sestra -------------------> stsestra(Koho, Jekdo) <-----------------------------
+stsestra(Koho,Jekdo):-zena(Jekdo),rod(_,_,X),najdi(Jekdo,X,S),member(Koho,S).
+%---------------------------------------------------------------------------------------
+
+%nejstarsi sestra -----------------------------> nejsestra(Koho,Jekdo) <-------------------------------
+nejsestra(Koho,Jekdo):-stsestra(Koho,Jekdo).
+nejsestra(Koho,Jekdo):-stsestra(Koho,X),nejsestra(X,Jekdo).
+%-----------------------------------------------------------------------------------------------------
+
+-

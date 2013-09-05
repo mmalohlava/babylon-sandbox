@@ -1,0 +1,5 @@
+<project name="Ivy test" xmlns:ivy="antlib:fr.jayasoft.ivy.ant">
+ <target name="resolve" description="Resolve dependencies">
+  <ivy:retrieve/>
+ </target>
+</project>

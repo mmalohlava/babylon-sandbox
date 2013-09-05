@@ -1,0 +1,8 @@
+%program ZIP - slouci dva seznamy style zipu --------------> mzip(S,A,B) <---------------------
+%								S   ... vysledny seznam
+%								A,B ... vstupni seznamy
+mzip([],[],[]).
+mzip([A|S],[A|X],[]):-mzip(S,X,[]).
+mzip([B|S],[],[B|X]):-mzip(S,[],B).
+mzip([A,B|S],[A|S1],[B|S2]):-mzip(S,S2,S1).
+%------------------------------------------------------------------------------------
