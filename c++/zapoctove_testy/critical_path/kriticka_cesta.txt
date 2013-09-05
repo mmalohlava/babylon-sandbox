@@ -1,0 +1,63 @@
+Kriticka cesta v grafu
+-------------------------
+
+Graf G(V,E) reprezentujici posloupnost operaci. 
+V = operace
+E = zavislosti mezi operacemi. Tj.'e' z E, e = (v1, v2) znaci, ze operace 'v1' se
+provadi pred operaci 'v2'.
+
+Pro kazdy vrchol 'v' z V je udana doba trvani operace d_v (duration).
+
+Algoritmus hledani kriticke cesty:
+-----------------------------------
+Faze 1 (najde minimalni startovni (est) a koncove (ect) casy):
+1. zacneme od vrcholu, ktere nemaji predchudce:
+	est_v = 0
+	ect_v = d_v (doba trvani)
+2. pro kazdy vrhol 'v' jehoz predchudci jsou zpracovani
+	est_v = max ect_i (i jsou vsichni predchudci)
+	ect_v = est_v + d_v
+3. Cmax = max ect_i 
+
+Faze 2 (najde maximalni startovni (lst) a koncove (lct) casy):
+1. zacneme od vrcholu, ktere nemaji zadne nasledniky
+	lct_v = Cmax
+	lst_v = Cmax - d_v
+2. pro kazdy vrchol 'v' jehoz naslednici uz byli zpracovani proved:
+	lct_v = min lst_j (j jsou vsichni jiz zpracovani naslednici)
+	lst_v = lct_v - d_v
+
+Operace, jejichz est = lst (=> nejde s nima hybat) jsou kriticke.
+
+Kritickou cestu tvori kriticke ulohy.
+
+Vstup:
+---------------
+<pocet vrcholu n = |V|>
+<pocet hran e = |E|>
+- prazdny radek
+d_1
+d_2
+.
+.
+.
+d_n
+- prazdny radek
+1,2
+2,3
+.
+.
+.
+7,n
+----------------
+
+Vystup:
+-----------
+- seznam  vrcholu na kriticke ceste (usporadanych vzestupne podle est).
+
+
+Volani programu:
+----------------
+cpath <nazev_souboru>
+
+

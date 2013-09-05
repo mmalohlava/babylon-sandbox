@@ -1,0 +1,31 @@
+Formatovani tabulky
+------------------------
+
+Naformatujte tabulku v danem souboru podle parametru urcenych na prikazove
+radce. Formatovani znamena zarovnani hodnot ve sloupcich podle danych
+pravidel.
+
+Vstup:
+Soubor s tabulkou. Prvni radek tabulky urcuje nazvy sloupecku, ostatni radky
+tabulky obsahuji data.
+
+Vystup:
+Naformatovana tabulka
+
+Prikazova radka programu:
+ftable <nazev_souboru> [cislo_sloupce] [{R|C|L}]
+
+ - nazev_souboru - urcuje vstup, povinny parameter
+ - cislo_sloupce - urcuje cislo sloupce, podle ktereho se tabulka bude tridit
+   (cislovano od 1), nepovinny parameter
+ - {R|C|L} - operatory zarovnani sloupcu. Pro kazdy sloupec muze byt urceno,
+   jak se ma zarovnat (R=do prava, C=na stred, L=do leva). Vycet operatoru
+   nemusi byt uplny, muze se definovat jen pro prvnich par sloupcu, pro zbytek
+   sloupcu se pouzije defaultne zarovnani R (do prava)
+ - pokud se program spusti bez parametru, vypise hlasku, jak program pouzivat
+   a skonci
+
+Priklad:
+ftable vstup.txt 2 R R C C
+- program naformatuje tabulku ulozenou v souboru vstup.txt, setridi ho podle
+  druheho sloupce, prvni a druhy sloupec zarovna do prava, treti a ctvrty sloupec zarovna na stred, zbyvajici sloupce necha zarovnane defaultne do prava.

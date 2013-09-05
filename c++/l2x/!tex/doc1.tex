@@ -1,0 +1,68 @@
+\documentstyle[czech,12pt]{article}
+\title{Zápoètový pøíklad}
+\author{Michal Malohlava}
+\date{}
+\newtheorem{pr}{Pøíklad}
+\begin{document}
+\maketitle
+\begin{pr}
+Nech» $f$ je neklesající funkce na $[0, \infty )$ taková, ¾e existuje
+$\int_0^{T}f$ pro ka¾dé $T>0$.
+\\
+Doka¾te, ¾e platí:
+$$\lim_{T \rightarrow \infty}{\frac{1}{T} \int_{0}^{T}{f(x)dx}}=c \Rightarrow \lim_{x \rightarrow \infty}{f(x)} = c $$
+\end{pr}
+\paragraph{Øe¹ení}
+Funkce $f$ je neklesající na $ [0, \infty] $, tj. je neklesající na ka¾dém intervalu $[0,T]$. Ale ka¾dá monotonní fce. definovaná na $[a,b]$ má Riemanùv integral $(R)\int_a^b{f(x)dx}$ (dle vìty v druhém semestru).
+\\
+Ale kdy¾ má fce. Riemanùv integrál na $[a,b]$ a je na tomto intervalu omezená (co¾ jistì neklesající fce je), pak existuje Lebesgueùv intgral $(L)\int_a^b{f(x)dx}$ a platí $(L)\int_a^b{f(x)dx} = (R)\int_a^b{f(x)dx}$.
+\\
+Tedy poèítání $(L)\int_a^b{f(x)dx}$ mù¾u nahradit poèítáním $(R)\int_a^b{f(x)dx}$.
+\\
+\\
+1. uká¾u, ¾e $c \le \lim_{x \rightarrow \infty}{f(x)}$
+\\
+Z monotonie platí:
+$$
+f(x) \le f(T) ,\textrm{ pro } x \in [0,T]
+$$
+Zintegruju (vlevo je fce, která má Riemanùv integral, f(T) je na konstanta):
+$$
+\int_0^T{f(x) dx} \le \int_0^T{f(T) dx} = T f(T)
+$$
+
+$$
+\frac{1}{T}\int_0^T{f(x) dx} \le f(T)
+$$
+
+Zlimitím:
+$$
+c \le \lim_{T \rightarrow \infty}f(T)
+$$
+\\
+2. uká¾u, ¾e $c \ge \lim_{x \rightarrow \infty}f(x)$
+\\
+Z monotonie + poèítám Riemanùv integrál:
+$$
+\int_0^T{f(x) dx} + T f(T) \le \int_0^{2T}{f(x)dx}
+$$
+$$
+\frac{1}{2T} \int_0^T{f(x) dx} + \frac{1}{2}f(T) \le \frac{1}{2T}\int_0^{2T}{f(x)dx}
+$$
+Zlimitím:
+$$
+\frac{c}{2} + \frac{1}{2}\lim_{T \rightarrow \infty}{f(T)} \le c
+$$
+Upravím
+$$
+\lim_{T \rightarrow \infty}{f(T)}\le c
+$$
+\\
+Tedy z 1. a 2. $\Longrightarrow$
+$$
+\lim_{T \rightarrow \infty}{f(T)} = c
+$$
+
+
+
+\end{document}

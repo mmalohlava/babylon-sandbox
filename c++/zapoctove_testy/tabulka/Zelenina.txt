@@ -1,0 +1,20 @@
+<div class="moz-text-flowed" style="font-family: -moz-fixed">mesic	zbozi	typ	prodejce	mnozstvi	cena	trzba
+         leden	   brambory		tuzemske	Bartak	10895	12	      130740
+leden	brambory	vlastni	Celestyn	15478	10	154780
+leden	jablka	dovoz	Adamec	1321	                                  30	39630
+leden	melouny	dovoz	Adamec	120	37	                      4440
+leden	okurky	dovoz	Bartak	4258	32	136256
+leden	papriky	dovoz	Bartak	453	51	23103
+leden	     pomerance	   dovoz	Adamec	4568	20	91360
+		unor	brambory	tuzemske	Celestyn	1258	13	16354
+unor	brambory	vlastni	Celestyn	7851	10	78510
+unor	jablka	dovoz	Adamec	989	23	22747
+unor	jablka	tuzemske	Bartak	1423	13	18499
+unor	papriky	dovoz	Bartak	545	49	26705
+unor	rajcata			tuzemske	Celestyn	231	42	9702
+brezen	brambory dovoz	Adamec	241	28	6748
+brezen	brambory tuzemske	Celestyn	15854	12	190248
+brezen	jablka	dovoz	Adamec	1234	25	30850
+brezen	jablka	vlastni	Celestyn	745	12	8940
+brezen	papriky	dovoz	Bartak	856	36	30816
+brezen	pomerance	dovoz	Adamec	3226	19	61294</div>

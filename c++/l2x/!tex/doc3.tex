@@ -1,0 +1,18 @@
+\documentstyle[czech,11pt]{article}
+\title{Specifikace roèníkového projektu II}
+\author{Michal Malohlava}
+\date{26.3.2002}
+\begin{document}
+\maketitle
+\section*{Ovládání Windows pomocí dálkového ovládaèe}
+\subsection*{Zadání}
+Úkolem by bylo vytvoøit aplikaci, která by umo¾òovala u¾ivatelsky jednoduché ovládání Windows pomocí klasického \uv{televizního} ovladaèe. Kromì klasických funkcí nutných k ovládání Windows (odlogování u¾ivatele, vypnuti, restart, zavøení okna, pøepnutí mezi aplikacemi, ovládání hlasitost, \ldots) bych chtìl implementovat i ovládání programu WinAmp, a nìkterého video pøehrávaèe (nutnou podmínkou je dostupnost SDK dokumentace). Vlastní nastavení programu by probíhalo jednoduchým zpùsobem, kdy by u¾ivatel \uv{uèil} aplikaci rozumìt jednotlivým tlaèítkùm dálkového ovládání. Dùraz by byl kladen i na vlastní vzhled aplikace.
+\subsection*{Cílová platforma}
+Projekt bude vyvíjen pro Windows 2000/XP. 
+\subsection*{Pou¾ité vývojové nástroje}
+Vývoj aplikace bude øe¹en pomocí MS Visual Studia v6. Programátorská dokumentace bude generována pomocí programu doxygen.
+\subsection*{Pou¾ité hardwarové prostøedky}
+Kromì vytvoøení aplikace bude nutno vyrobit pøijímací modul. Tento modul je øe¹en jako jednoduché zaøízení, které je pøipojeno na sériový port - návod na stavbu je napø. na adrese www.lirc.org.
+\subsection*{Odhad dokonèení}
+V betaverzi bych chtìl mít implementováno jádro celého systému - tj. vyøe¹enou komunikaci se zaøízením na sériovém portu. Ucelené GUI by bylo obsa¾eno a¾ v koneèné verzi aplikace.
+\end{document}

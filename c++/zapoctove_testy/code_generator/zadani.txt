@@ -1,0 +1,12 @@
+Code generator
+------------------
+Program vygeneruje podle popisu C++ kod. Popis bude obsahovat tridy s jejimi
+parametry (private, public, protected) + R/W (pro generaci setru/getru).
+Kontrola R/W v. public.
+Najde sdilene rodice. Vygeneruje C++ kod.
+
+Vstup:
+Popis trid
+
+Vystup:
+C++ kod (zkompilovatelny)
