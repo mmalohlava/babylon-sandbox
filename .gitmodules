@@ -4,3 +4,6 @@
 [submodule "babylon4R"]
 	path = babylon4R
 	url = git@github.com:mmalohlava/babylon4R.git
+[submodule "babylon4shell"]
+	path = babylon4shell
+	url = git@github.com:mmalohlava/babylon4shell.git
