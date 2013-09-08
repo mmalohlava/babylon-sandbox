@@ -7,3 +7,6 @@
 [submodule "babylon4shell"]
 	path = babylon4shell
 	url = git@github.com:mmalohlava/babylon4shell.git
+[submodule "babylon4clojure"]
+	path = babylon4clojure
+	url = git@github.com:mmalohlava/babylon4clojure.git
